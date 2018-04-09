@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 20180409040331) do
 
   create_table "businesses", force: :cascade do |t|
     t.string "name"
-    t.string "industries"
+    t.string "industries", default: [], array: true
     t.string "employees"
-    t.string "other_partners"
-    t.string "other_competitors"
+    t.string "other_partners", default: [], array: true
+    t.string "other_competitors", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
