@@ -9,7 +9,7 @@ Skill.destroy_all
 Business.destroy_all
 
 puts "Reading excel file..."
-workbook = RubyXL::Parser.parse("db/clique_connect_database.xlsx")
+workbook = RubyXL::Parser.parse(ENV['DB_LOCATION'])
 worksheet = workbook['Businesses'][1..-1]
 
 puts "Creating businesses and business skills..."
