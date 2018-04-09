@@ -135,7 +135,6 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
-<<<<<<< HEAD
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -153,8 +152,6 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
-=======
->>>>>>> 50734fe188c840068bc2bd8a77b93c44b5afc868
     rubyXL (3.3.29)
       nokogiri (>= 1.4.4)
       rubyzip (>= 1.1.6)
@@ -224,10 +221,7 @@ DEPENDENCIES
   puma
   rails (= 5.1.5)
   redis
-<<<<<<< HEAD
   rspec-rails
-=======
->>>>>>> 50734fe188c840068bc2bd8a77b93c44b5afc868
   rubyXL
   sass-rails
   simple_form
