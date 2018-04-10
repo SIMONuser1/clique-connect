@@ -8,6 +8,10 @@ class Business < ApplicationRecord
   has_many :competitors, through: :competitions
   has_many :suggestions
   has_many :suggested_businesses, through: :suggestions
+  has_many :clicks, source: :clicker
+  has_many :businesses_clicked, through: :clicks, source: :clicked
+  has_many :business_customer_interests
+  has_many :customer_interests, through: :business_customer_interests
 
   enum employees: {
     :"1_to_10" => "1 to 10",
@@ -20,13 +24,16 @@ class Business < ApplicationRecord
   }
 
   # Add click associations as required
-  # has_many :businesses_clicked, through: :clicks, source: clicker
-  # has_many :clicked_businesses, through: :clicks, source: :clicked
-  #
+
   def update_suggestions!
+    suggestions.destroy_all
+    Business.all.each do |business|
+      next if self == business
+      suggestions.create!(suggested_business: business)
+    end
+    # self.suggested_businesses = self.class.all.shuffle[0..9]
     # TODO
     # For the moment, it just simulates random suggestions
     # This is where the algorithm to create the suggestion objects and add ratings will go
-    self.suggested_businesses = self.class.all.shuffle[0..9]
-  end
+    end
 end

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409040331) do
+ActiveRecord::Schema.define(version: 20180410021349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "business_customer_interests", force: :cascade do |t|
+    t.bigint "business_id"
+    t.bigint "customer_interest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_customer_interests_on_business_id"
+    t.index ["customer_interest_id"], name: "index_business_customer_interests_on_customer_interest_id"
+  end
 
   create_table "business_skills", force: :cascade do |t|
     t.bigint "business_id"
@@ -52,6 +61,12 @@ ActiveRecord::Schema.define(version: 20180409040331) do
     t.datetime "updated_at", null: false
     t.index ["business_id"], name: "index_competitions_on_business_id"
     t.index ["competitor_id"], name: "index_competitions_on_competitor_id"
+  end
+
+  create_table "customer_interests", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "partnerships", force: :cascade do |t|
@@ -99,6 +114,8 @@ ActiveRecord::Schema.define(version: 20180409040331) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "business_customer_interests", "businesses"
+  add_foreign_key "business_customer_interests", "customer_interests"
   add_foreign_key "business_skills", "businesses"
   add_foreign_key "business_skills", "skills"
   add_foreign_key "clicks", "businesses", column: "clicked_id"
