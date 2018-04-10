@@ -24,10 +24,6 @@ worksheet.each do |row|
   desired_skills = row.cells[3].value.split("\n")
   acquired_skills = row.cells[4].value.split("\n")
 
-  # (desired_skills + acquired_skills).each do |skill|
-  #   Skill.create!(name: skill) unless Skill.where(name: skill)
-  # end
-
   desired_skills.each do |des|
     current_business.business_skills.desired.create!(skill: Skill.where(name: des).first_or_create)
   end
@@ -48,6 +44,7 @@ worksheet.each do |row|
       current_business.competitions.create!(competitor: Business.where(name: competitor).first)
     else
       current_business.other_competitors << competitor
+      current_business.save!
     end
   end
 end
@@ -64,6 +61,7 @@ worksheet.each do |row|
       current_business.partnerships.desired.create!(partner: Business.where(name: des).first)
     else
       current_business.other_partners << des
+      current_business.save!
     end
   end
 
@@ -72,7 +70,20 @@ worksheet.each do |row|
       current_business.partnerships.acquired.create!(partner: Business.where(name: acq).first)
     else
       current_business.other_partners << acq
+      current_business.save!
     end
+  end
+end
+
+puts "Adding customer interests..."
+worksheet.each do |row|
+  current_business = Business.where(name: row.cells[0].value).first
+  interests = row.cells[8].value.split("\n")
+
+  interests.each do |interest|
+    current_business.business_customer_interests.create!(
+      customer_interest: Customer_Interest.where(name: interest).first_or_create
+    )
   end
 end
 

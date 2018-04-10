@@ -1,0 +1,2 @@
+class CustomerInterest < ApplicationRecord
+end
