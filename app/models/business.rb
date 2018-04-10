@@ -22,4 +22,11 @@ class Business < ApplicationRecord
   # Add click associations as required
   # has_many :businesses_clicked, through: :clicks, source: clicker
   # has_many :clicked_businesses, through: :clicks, source: :clicked
+  #
+  def update_suggestions!
+    # TODO
+    # For the moment, it just simulates random suggestions
+    # This is where the algorithm to create the suggestion objects and add ratings will go
+    self.suggested_businesses = self.class.all.shuffle[0..9]
+  end
 end
