@@ -2,6 +2,7 @@ require 'rubyXL' # Assuming rubygems is already required
 require 'pry-byebug'
 
 puts "Clearing database..."
+Suggestion.destroy_all
 Partnership.destroy_all
 Competition.destroy_all
 BusinessSkill.destroy_all
@@ -37,7 +38,7 @@ end
 puts "Adding competitors..."
 worksheet.each do |row|
   current_business = Business.where(name: row.cells[0].value).first
-  competitors = row.cells[5].value.split("\n")
+  competitors = row.cells[5].value.nil? ? [] : row.cells[5].value.split("\n")
 
   competitors.each do |competitor|
     if Business.where(name: competitor).first
@@ -53,8 +54,8 @@ puts "Adding partnerships..."
 worksheet.each do |row|
   current_business = Business.where(name: row.cells[0].value).first
 
-  desired_partnerships = row.cells[6].nil? ? [] : row.cells[6].value.split("\n")
-  acquired_partnerships = row.cells[7].nil? ? [] : row.cells[7].value.split("\n")
+  desired_partnerships = row.cells[6].value.nil? ? [] : row.cells[6].value.split("\n")
+  acquired_partnerships = row.cells[7].value.nil? ? [] : row.cells[7].value.split("\n")
 
   desired_partnerships.each do |des|
     if Business.where(name: des).first
@@ -82,7 +83,7 @@ worksheet.each do |row|
 
   interests.each do |interest|
     current_business.business_customer_interests.create!(
-      customer_interest: Customer_Interest.where(name: interest).first_or_create
+      customer_interest: CustomerInterest.where(name: interest).first_or_create
     )
   end
 end
