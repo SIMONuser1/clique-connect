@@ -27,16 +27,14 @@ class Business < ApplicationRecord
 
   def update_suggestions!(weights = nil)
     suggestions.destroy_all
-    Business.all.each do |business|
-      next if self == business
+
+    (Business.all - [self]).each do |business|
       suggestions.create!(
         suggested_business: business,
         weights: weights
       )
     end
-    # self.suggested_businesses = self.class.all.shuffle[0..9]
-    # TODO
-    # For the moment, it just simulates random suggestions
-    # This is where the algorithm to create the suggestion objects and add ratings will go
-    end
+
+    suggestions
+  end
 end

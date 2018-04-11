@@ -17,6 +17,8 @@ class Suggestion < ApplicationRecord
 
   before_create :calculate_rating
 
+  default_scope { order(rating: :desc) }
+
   def weights
     @weights || WEIGHTS
   end

@@ -3,26 +3,32 @@ namespace :test do
   task weighting_rounds: :environment do
     results = []
 
-    # Duplicate but set all weights to 1
-    weights = Suggestion::WEIGHTS.inject({}) do |res, (k, v)|
-      res[k] = 1 ; res
-    end
+    CHOICES = 2
+    weights = 4 # Suggestion::WEIGHTS.size
 
-    (1..5).each do |x|
-      weights.keys.each do |key|
-        (1..5).each do |weight|
-          weights[key] = weight
+    results = (1..CHOICES).inject([]) { |res, num| res << Array.new(weights, num) }
+      .flatten
+      .permutation(weights)
+      .to_a
+      .uniq
+      .inject([]) do |results, combination|
 
-          # result = `WEIGHTS='#{weights.to_yaml}' rspec`[/\d+ failures/]
-
-          results << {result: (100 - 'result'.to_i), weights: weights.dup}
-        end
-        weights[key] = x
+      weights = combination.each_with_index.inject({}) do |res, (weight, index)|
+        res[Suggestion::WEIGHTS.keys[index]] = weight ; res
       end
-    end
-    results.sort { |a| a[:result] }
-    results.each do |result|
-      puts "#{result[:result]}%: #{result[:weights]}"
+
+      result = `WEIGHTS='#{weights.to_yaml}' rspec`[/\d+ failures/]
+      success = 100 - result.to_i
+
+      puts "#{success}%: #{weights}"
+
+      results << {result: success, weights: weights}
+    end.sort { |a| a[:result] }
+
+    File.open('./results.txt', 'wb') do |f|
+      results.each do |result|
+        f.write "#{result[:result]}%: #{result[:weights]}\n"
+      end
     end
   end
 end
