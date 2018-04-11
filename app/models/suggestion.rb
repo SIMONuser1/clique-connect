@@ -1,10 +1,25 @@
+require 'pry-byebug'
+
 class Suggestion < ApplicationRecord
-  require 'pry-byebug'
+  WEIGHTS = {
+    des_skills: 1,
+    des_partnerships: 2,
+    click_count: 3,
+    customer_interests: 2,
+    des_partner_competitor: 1,
+    acq_partner_competitor: 3
+  }
+
+  attr_writer :weights
 
   belongs_to :business
   belongs_to :suggested_business, class_name: 'Business'
 
   before_create :calculate_rating
+
+  def weights
+    @weights || WEIGHTS
+  end
 
   def calculate_rating
     des_skills_rating             = 0
@@ -13,7 +28,6 @@ class Suggestion < ApplicationRecord
     customer_interests_rating     = 0
     des_partner_competitor_rating = 0
     acq_partner_competitor_rating = 0
-
 
     # Calculating against desired business skill match
     des_skills_rating += (suggested_business.business_skills.acquired.map(&:skill_id) & business.business_skills.desired.map(&:skill_id)).count
@@ -43,6 +57,8 @@ class Suggestion < ApplicationRecord
     acq_partner_competitor_rating = (business.partnerships.acquired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
 
     # insert variable weighting multipliers for each rating based on user preferences
+    # Use self#weights
+
     total_rating = [
       des_skills_rating,
       des_partnerships_rating,
