@@ -1,14 +1,12 @@
 class Business < ApplicationRecord
   has_one :user
-  has_many :business_skills
-  has_many :skills, through: :business_skills
   has_many :partnerships
   has_many :partners, through: :partnerships
   has_many :competitions
   has_many :competitors, through: :competitions
   has_many :suggestions
   has_many :suggested_businesses, through: :suggestions
-  has_many :clicks, source: :clicker
+  has_many :clicks, foreign_key: :clicker_id
   has_many :businesses_clicked, through: :clicks, source: :clicked
   has_many :business_customer_interests
   has_many :customer_interests, through: :business_customer_interests
@@ -21,6 +19,14 @@ class Business < ApplicationRecord
     :"501_to_1000" => "501 to 1000",
     :"1001_to_5000" => "1001 to 5000",
     :"5000+" => "5000+",
+  }
+
+  PARTNERSHIP_TYPES = {
+    ev_p: 'Event Partnerships',
+    pr_p: 'PR',
+    cpo_p: 'Cross Promotion Opportunities',
+    tech_p: 'Technical Partnerships',
+    eco_p:'Ecosystem Partnerships'
   }
 
   # Add click associations as required
