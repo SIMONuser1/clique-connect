@@ -41,6 +41,6 @@ class Business < ApplicationRecord
       )
     end
 
-    suggestions
+    suggested_businesses
   end
 end

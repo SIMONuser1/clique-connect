@@ -2,13 +2,15 @@ require 'pry-byebug'
 
 class Suggestion < ApplicationRecord
   WEIGHTS = {
-    des_skills: 1,
+    des_p_types: 1,
     des_partnerships: 2,
     click_count: 3,
     customer_interests: 2,
     des_partner_competitor: 1,
     acq_partner_competitor: 3
   }
+
+  # rating.each * (weight.values.each / weight.values.inject(&:+))
 
   attr_writer :weights
 
@@ -80,9 +82,13 @@ class Suggestion < ApplicationRecord
       acq_partner_competitor_rating
     ]
 
-    total_rating.map!{ |r| r.round(2) }
+    weighted_ratings = total_rating.each_with_index.inject([]) do |res, (rating, index)|
+      res << weights.values[index] * rating
+    end
 
-    # p total_rating
-    self.rating = total_rating.sum
+    final_rating = (weighted_ratings.sum * 100 / weights.values.sum.to_f).to_i
+
+    p final_rating
+    self.rating = final_rating
   end
 end
