@@ -1,10 +1,27 @@
+require 'pry-byebug'
+
 class Suggestion < ApplicationRecord
-  require 'pry-byebug'
+  WEIGHTS = {
+    des_skills: 1,
+    des_partnerships: 2,
+    click_count: 3,
+    customer_interests: 2,
+    des_partner_competitor: 1,
+    acq_partner_competitor: 3
+  }
+
+  attr_writer :weights
 
   belongs_to :business
   belongs_to :suggested_business, class_name: 'Business'
 
   before_create :calculate_rating
+
+  default_scope { order(rating: :desc) }
+
+  def weights
+    @weights || WEIGHTS
+  end
 
   def calculate_rating
     des_p_types_rating            = 0
@@ -13,7 +30,6 @@ class Suggestion < ApplicationRecord
     customer_interests_rating     = 0
     des_partner_competitor_rating = 0
     acq_partner_competitor_rating = 0
-
 
     # Calculating against desired business partnership type match
     des_p_types_rating += (suggested_business.offered_partnership_types & business.desired_partnership_types).count
@@ -53,6 +69,8 @@ class Suggestion < ApplicationRecord
     acq_partner_competitor_rating /= business.partnerships.acquired.count.to_f
 
     # insert variable weighting multipliers for each rating based on user preferences
+    # Use self#weights
+
     total_rating = [
       des_p_types_rating,
       des_partnerships_rating,
