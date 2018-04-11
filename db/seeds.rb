@@ -1,43 +1,44 @@
 require 'rubyXL' # Assuming rubygems is already required
 require 'pry-byebug'
 
+def def_current_business(row)
+  Business.where(name: row.cells[0].value).first
+end
+
 puts "Clearing database..."
 Suggestion.destroy_all
+Click.destroy_all
+BusinessCustomerInterest.destroy_all
+CustomerInterest.destroy_all
 Partnership.destroy_all
 Competition.destroy_all
-BusinessSkill.destroy_all
-Skill.destroy_all
 Business.destroy_all
 
 puts "Reading excel file..."
 workbook = RubyXL::Parser.parse(ENV['DB_LOCATION'])
-worksheet = workbook['Businesses'][1..-1]
+worksheet_bus = workbook['Businesses'][1..-1]
+worksheet_cli = workbook['Clicks'][1..-1]
+worksheet_sug= workbook['Suggestions'][1..-1]
 
-puts "Creating businesses and business skills..."
-worksheet.each do |row|
+puts "Creating businesses..."
+worksheet_bus.each do |row|
+  des_p_types = row.cells[3].value.nil? ? [] : row.cells[3].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
+  off_p_types = row.cells[4].value.nil? ? [] : row.cells[4].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
+
   business_hash = {
     name: row.cells[0].value,
     industries: row.cells[1].value.split("\n"),
-    employees: Business.employees.invert[row.cells[2].value]
+    employees: Business.employees.invert[row.cells[2].value],
+    desired_partnership_types: des_p_types,
+    offered_partnership_types: off_p_types
   }
   current_business = Business.create!(business_hash)
-
-  desired_skills = row.cells[3].value.split("\n")
-  acquired_skills = row.cells[4].value.split("\n")
-
-  desired_skills.each do |des|
-    current_business.business_skills.desired.create!(skill: Skill.where(name: des).first_or_create)
-  end
-
-  acquired_skills.each do |acq|
-    current_business.business_skills.acquired.create!(skill: Skill.where(name: acq).first_or_create)
-  end
 end
 
 
 puts "Adding competitors..."
-worksheet.each do |row|
-  current_business = Business.where(name: row.cells[0].value).first
+worksheet_bus.each do |row|
+  current_business = def_current_business(row)
   competitors = row.cells[5].value.nil? ? [] : row.cells[5].value.split("\n")
 
   competitors.each do |competitor|
@@ -51,8 +52,8 @@ worksheet.each do |row|
 end
 
 puts "Adding partnerships..."
-worksheet.each do |row|
-  current_business = Business.where(name: row.cells[0].value).first
+worksheet_bus.each do |row|
+  current_business = def_current_business(row)
 
   desired_partnerships = row.cells[6].value.nil? ? [] : row.cells[6].value.split("\n")
   acquired_partnerships = row.cells[7].value.nil? ? [] : row.cells[7].value.split("\n")
@@ -77,8 +78,8 @@ worksheet.each do |row|
 end
 
 puts "Adding customer interests..."
-worksheet.each do |row|
-  current_business = Business.where(name: row.cells[0].value).first
+worksheet_bus.each do |row|
+  current_business = def_current_business(row)
   interests = row.cells[8].value.split("\n")
 
   interests.each do |interest|
@@ -86,6 +87,22 @@ worksheet.each do |row|
       customer_interest: CustomerInterest.where(name: interest).first_or_create
     )
   end
+end
+
+puts "Adding clicks..."
+worksheet_cli.each do |row|
+  click_hash = {
+    clicker: def_current_business(row),
+    clicked: Business.where(name: row.cells[1].value).first,
+    count: row.cells[2].value
+  }
+  Click.create!(click_hash)
+end
+
+puts "Adding suggestions..."
+worksheet_sug.each do |row|
+  current_business = def_current_business(row)
+  current_business.update_suggestions!
 end
 
 puts "Done!"

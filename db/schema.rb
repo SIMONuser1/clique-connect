@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410021349) do
+ActiveRecord::Schema.define(version: 20180411052011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,16 +24,6 @@ ActiveRecord::Schema.define(version: 20180410021349) do
     t.index ["customer_interest_id"], name: "index_business_customer_interests_on_customer_interest_id"
   end
 
-  create_table "business_skills", force: :cascade do |t|
-    t.bigint "business_id"
-    t.bigint "skill_id"
-    t.boolean "acquired", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["business_id"], name: "index_business_skills_on_business_id"
-    t.index ["skill_id"], name: "index_business_skills_on_skill_id"
-  end
-
   create_table "businesses", force: :cascade do |t|
     t.string "name"
     t.string "industries", default: [], array: true
@@ -42,12 +32,14 @@ ActiveRecord::Schema.define(version: 20180410021349) do
     t.string "other_competitors", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "desired_partnership_types", array: true
+    t.string "offered_partnership_types", array: true
   end
 
   create_table "clicks", force: :cascade do |t|
     t.bigint "clicker_id"
     t.bigint "clicked_id"
-    t.integer "count", default: 1
+    t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clicked_id"], name: "index_clicks_on_clicked_id"
@@ -72,17 +64,11 @@ ActiveRecord::Schema.define(version: 20180410021349) do
   create_table "partnerships", force: :cascade do |t|
     t.bigint "business_id"
     t.bigint "partner_id"
-    t.boolean "acquired", null: false
+    t.boolean "acquired", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_id"], name: "index_partnerships_on_business_id"
     t.index ["partner_id"], name: "index_partnerships_on_partner_id"
-  end
-
-  create_table "skills", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "suggestions", force: :cascade do |t|
@@ -116,8 +102,6 @@ ActiveRecord::Schema.define(version: 20180410021349) do
 
   add_foreign_key "business_customer_interests", "businesses"
   add_foreign_key "business_customer_interests", "customer_interests"
-  add_foreign_key "business_skills", "businesses"
-  add_foreign_key "business_skills", "skills"
   add_foreign_key "clicks", "businesses", column: "clicked_id"
   add_foreign_key "clicks", "businesses", column: "clicker_id"
   add_foreign_key "competitions", "businesses"
