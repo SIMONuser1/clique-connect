@@ -4,11 +4,11 @@ namespace :test do
     results = []
 
     CHOICES = 2
-    weights = 4 # Suggestion::WEIGHTS.size
+    num_weights = 4 # Suggestion::WEIGHTS.size
 
-    results = (1..CHOICES).inject([]) { |res, num| res << Array.new(weights, num) }
+    results = (1..CHOICES).inject([]) { |res, num| res << Array.new(num_weights, num) }
       .flatten
-      .permutation(weights)
+      .permutation(num_weights)
       .to_a
       .uniq
       .inject([]) do |results, combination|
