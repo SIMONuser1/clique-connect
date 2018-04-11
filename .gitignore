@@ -13,6 +13,7 @@ node_modules
 yarn-error.log
 .byebug_history
 db/~*
+db/.~lock*
 
 # Ignore application configuration
 /config/application.yml
