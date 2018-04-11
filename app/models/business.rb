@@ -25,11 +25,14 @@ class Business < ApplicationRecord
 
   # Add click associations as required
 
-  def update_suggestions!
+  def update_suggestions!(weights = nil)
     suggestions.destroy_all
     Business.all.each do |business|
       next if self == business
-      suggestions.create!(suggested_business: business)
+      suggestions.create!(
+        suggested_business: business,
+        weights: weights
+      )
     end
     # self.suggested_businesses = self.class.all.shuffle[0..9]
     # TODO
