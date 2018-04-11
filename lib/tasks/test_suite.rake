@@ -3,24 +3,25 @@ namespace :test do
   task weighting_rounds: :environment do
     results = []
 
-    # Suggestion::WEIGHTS.keys.each do |key|
-      (1..5).each do |weight|
-        weights = {
-          des_skills: weight,
-          des_partnerships: 2,
-          click_count: 3,
-          customer_interests: 2,
-          des_partner_competitor: 1,
-          acq_partner_competitor: 3
-        }
+    # Duplicate but set all weights to 1
+    weights = Suggestion::WEIGHTS.inject({}) do |res, (k, v)|
+      res[k] = 1 ; res
+    end
 
-        result = `WEIGHTS='#{weights.to_yaml}' rspec`[/\d+ failures/]
+    (1..5).each do |x|
+      weights.keys.each do |key|
+        (1..5).each do |weight|
+          weights[key] = weight
 
-        results << {result: (100 - result.to_i), weights: weights}
+          # result = `WEIGHTS='#{weights.to_yaml}' rspec`[/\d+ failures/]
+
+          results << {result: (100 - 'result'.to_i), weights: weights.dup}
+        end
+        weights[key] = x
       end
-    # end
-
-    results.sort { |a| a[:result] }.each do |result|
+    end
+    results.sort { |a| a[:result] }
+    results.each do |result|
       puts "#{result[:result]}%: #{result[:weights]}"
     end
   end
