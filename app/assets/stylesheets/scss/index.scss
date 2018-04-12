@@ -1,0 +1,7 @@
+// Importing theme's custom styles
+@import "theme/variables";
+@import "theme/components";
+
+// Overriding theme's custom styles
+@import "theme/user-variables";
+@import "theme/user";
