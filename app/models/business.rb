@@ -1,14 +1,14 @@
 class Business < ApplicationRecord
-  has_one :user
-  has_many :partnerships
+  has_many :users
+  has_many :partnerships, dependent: :destroy
   has_many :partners, through: :partnerships
-  has_many :competitions
+  has_many :competitions, dependent: :destroy
   has_many :competitors, through: :competitions
-  has_many :suggestions
+  has_many :suggestions, dependent: :destroy
   has_many :suggested_businesses, through: :suggestions
-  has_many :clicks, foreign_key: :clicker_id
+  has_many :clicks, foreign_key: :clicker_id, dependent: :destroy
   has_many :businesses_clicked, through: :clicks, source: :clicked
-  has_many :business_customer_interests
+  has_many :business_customer_interests, dependent: :destroy
   has_many :customer_interests, through: :business_customer_interests
 
   enum employees: {
@@ -28,8 +28,6 @@ class Business < ApplicationRecord
     tech_p: 'Technical Partnerships',
     eco_p:'Ecosystem Partnerships'
   }
-
-  # Add click associations as required
 
   def update_suggestions!(weights = nil)
     suggestions.destroy_all
