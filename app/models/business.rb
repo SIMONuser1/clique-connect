@@ -11,6 +11,12 @@ class Business < ApplicationRecord
   has_many :business_customer_interests
   has_many :customer_interests, through: :business_customer_interests
 
+  include AlgoliaSearch
+
+    algoliasearch do
+      attribute :name, :industries, :customer_interests
+    end
+
   enum employees: {
     :"1_to_10" => "1 to 10",
     :"11_to_50" => "11 to 50",
