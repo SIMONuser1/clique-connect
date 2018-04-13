@@ -1,7 +1,6 @@
 class Business < ApplicationRecord
   require 'open-uri'
   require 'nokogiri'
-  require 'pry-byebug'
 
   has_many :users
   has_many :partnerships, dependent: :destroy
@@ -41,6 +40,36 @@ class Business < ApplicationRecord
     eco_p:'Ecosystem Partnerships'
   }
 
+  def match_percent_with(business)
+    suggestions.where(suggested_business_id: business.id).first.rating
+  end
+
+  def who_clicked_who(business)
+    click_array = click_counts(business)
+
+    if click_array.sum.zero?
+      "No clicks"
+    elsif click_array[0].zero?
+      "They clicked"
+    elsif click_array[1].zero?
+      "You clicked"
+    else
+      "Both clicked"
+    end
+  end
+
+  def mutual_clicks(business)
+    click_counts(business).min
+  end
+
+  def p_types_desired_match(business)
+    (desired_partnership_types & business.offered_partnership_types).map{ |e| PARTNERSHIP_TYPES[e.to_sym]}
+  end
+
+  def customer_skills_match(business)
+    (customer_interests & business.customer_interests).map{ |e| e.name}
+  end
+
   def update_suggestions!(weights = nil)
     suggestions.destroy_all
 
@@ -65,5 +94,15 @@ class Business < ApplicationRecord
     if site_desc = html_doc.search("meta[name='description']").map{|n|n['content']}.first
       self.description = site_desc.strip
     end
+    self.save
+  end
+
+  private
+
+  def click_counts(business)
+    you_clicked_them = clicks.where(clicked_id: business.id).count
+    they_clicked_you = business.clicks.where(clicked_id: id).count
+
+    [you_clicked_them, they_clicked_you]
   end
 end
