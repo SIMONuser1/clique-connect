@@ -9,6 +9,7 @@ gem 'puma'
 gem 'rails', '5.1.5'
 gem 'redis'
 gem 'jquery-rails'
+gem 'rubyXL'
 
 gem 'autoprefixer-rails'
 # gem 'bootstrap', '~> 4.0.0'
@@ -25,7 +26,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rubyXL'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'listen', '~> 3.0.5'
