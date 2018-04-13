@@ -1,5 +1,3 @@
-require 'pry-byebug'
-
 class Suggestion < ApplicationRecord
   WEIGHTS = {:des_p_types=>1, :des_partnerships=>1, :click_count=>5, :customer_interests=>1, :des_partner_competitor=>5, :acq_partner_competitor=>1}
 
