@@ -1,2 +1,3 @@
-<h1>Suggestions#index</h1>
-<p>Find me in app/views/suggestions/index.html.erb</p>
+<% @suggestions.first(10).each do |suggestion| %>
+  <p><%= suggestion.suggested_business.name %> <br> Match Rating: <%= suggestion.rating %>%</p>
+<% end %>
