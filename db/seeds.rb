@@ -24,13 +24,15 @@ puts "Creating businesses..."
 worksheet_bus.each do |row|
   des_p_types = row.cells[3].value.nil? ? [] : row.cells[3].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
   off_p_types = row.cells[4].value.nil? ? [] : row.cells[4].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
+  bus_url = row.cells[9]. nil? ? "" : row.cells[9].value
 
   business_hash = {
     name: row.cells[0].value,
     industries: row.cells[1].value.split("\n"),
     employees: Business.employees.invert[row.cells[2].value],
     desired_partnership_types: des_p_types,
-    offered_partnership_types: off_p_types
+    offered_partnership_types: off_p_types,
+    url: bus_url
   }
   current_business = Business.create!(business_hash)
 end
@@ -96,6 +98,7 @@ worksheet_cli.each do |row|
     clicked: Business.where(name: row.cells[1].value).first,
     count: row.cells[2].value
   }
+  # p click_hash
   Click.create!(click_hash)
 end
 

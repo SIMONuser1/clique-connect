@@ -1,4 +1,8 @@
 class Business < ApplicationRecord
+  require 'open-uri'
+  require 'nokogiri'
+  require 'pry-byebug'
+
   has_many :users
   has_many :partnerships, dependent: :destroy
   has_many :partners, through: :partnerships
@@ -10,6 +14,8 @@ class Business < ApplicationRecord
   has_many :businesses_clicked, through: :clicks, source: :clicked
   has_many :business_customer_interests, dependent: :destroy
   has_many :customer_interests, through: :business_customer_interests
+
+  after_create :add_description
 
   enum employees: {
     :"1_to_10" => "1 to 10",
@@ -40,5 +46,18 @@ class Business < ApplicationRecord
     end
 
     suggested_businesses
+  end
+
+  def add_description
+    begin
+      html_file = open(url).read unless url.nil?
+    rescue
+      return
+    end
+    html_doc = Nokogiri::HTML(html_file)
+
+    if site_desc = html_doc.search("meta[name='description']").map{|n|n['content']}.first
+      self.description = site_desc.strip
+    end
   end
 end

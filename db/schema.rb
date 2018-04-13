@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180412060522) do
     t.datetime "updated_at", null: false
     t.string "desired_partnership_types", array: true
     t.string "offered_partnership_types", array: true
-    t.string "URL"
+    t.string "url"
     t.text "description"
   end
 
