@@ -1,5 +1,4 @@
 require 'rubyXL' # Assuming rubygems is already required
-require 'pry-byebug'
 
 def def_current_business(row)
   Business.where(name: row.cells[0].value).first
