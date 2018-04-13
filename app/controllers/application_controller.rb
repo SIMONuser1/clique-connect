@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :user_needs_business
 
   def user_needs_business
-    redirect_to welcome_path, notice: "You must have a business scrub" unless current_user.business
+    # redirect_to welcome_path, notice: "You must have a business scrub" unless current_user.business
   end
 
   # def after_sign_in_path_for(resource)
