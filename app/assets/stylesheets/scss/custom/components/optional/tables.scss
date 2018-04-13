@@ -37,12 +37,6 @@ tbody{
       vertical-align: middle;
     }
   }
-  &.table-borderless{
-    border-collapse: collapse;
-    th, td{
-      border: none;
-    }
-  }
 }
 
 .table-hover tr{

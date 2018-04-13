@@ -1,0 +1,84 @@
+<!-- <p id="notice"><%= notice %></p> -->
+<div class="space"></div>
+<div class="main-container">
+  <section class="bg-white space-sm">
+    <%= render 'shared/show_header' %>
+    <!--end of container-->
+  </section>
+            <!--end of section-->
+  <section class="space-sm">
+      <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-12 col-md-8 col-lg-7">
+              <%= render 'shared/show_video' %>
+                <!--end of video cover-->
+              <%= render 'shared/show_business_description' %>
+                <hr>
+              <%= render 'shared/show_your_competitors_view' %>
+            </div>
+              <!--end of col-->
+              <div class="col-12 col-md-4">
+                  <!-- end card -->
+                <%= render 'shared/show_quick_stats' %>
+                <%= render 'shared/show_people_to_contact' %>
+                  <!-- end card -->
+                <%= render 'shared/show_people_also_view' %>
+              <!--end of col-->
+              </div>
+          <!--end of row-->
+      </div>
+      <!--end of container-->
+  </section>
+            <!--end of section-->
+
+</div>
+
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @business.name %>
+</p>
+
+<p>
+  <strong>Industries:</strong>
+  <%= @business.industries %>
+</p>
+
+<p>
+  <strong>Employees:</strong>
+  <%= @business.employees %>
+</p>
+
+<p>
+  <strong>Other partners:</strong>
+  <%= @business.other_partners %>
+</p>
+
+<p>
+  <strong>Other competitors:</strong>
+  <%= @business.other_competitors %>
+</p>
+
+<p>
+  <strong>Desired partnership types:</strong>
+  <%= @business.desired_partnership_types %>
+</p>
+
+<p>
+  <strong>Offered partnership types:</strong>
+  <%= @business.offered_partnership_types %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @business.URL %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @business.description %>
+</p>
+
+<%= link_to 'Edit', edit_business_path(@business) %> |
+<%= link_to 'Back', businesses_path %>

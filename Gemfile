@@ -11,12 +11,14 @@ gem 'redis'
 gem 'jquery-rails'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap', '~> 4.0.0'
+# gem 'bootstrap', '~> 4.0.0'
 gem 'font-awesome-sass', '~> 4.7'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
+gem "algoliasearch-rails"
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'

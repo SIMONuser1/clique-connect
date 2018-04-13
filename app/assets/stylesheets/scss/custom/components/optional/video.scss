@@ -97,6 +97,15 @@ $video-cover-transition: .35s;
   }
 }
 
+.video-cover-touch{
+  .bg-image, .video-play-icon{
+    display: none;
+  }
+  iframe{
+    opacity: 1;
+  }
+}
+
 @include media-breakpoint-down(xs) {
   .fullwidth-split-image{
     .bg-image + .video-play-icon{
@@ -105,14 +114,6 @@ $video-cover-transition: .35s;
       top: 50%;
       left: 50%;
       transform: translateX(-50%) translateY(-50%);
-    }
-  }
-  .video-cover{
-    .bg-image, .video-play-icon{
-      display: none;
-    }
-    iframe{
-      opacity: 1;
     }
   }
 }

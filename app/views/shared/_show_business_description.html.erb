@@ -1,0 +1,13 @@
+<article>
+  <strong>Industries:</strong>
+  <% @business.industries.each do |list| %>
+    <span class="badge badge-secondary"><%= list %></span>
+  <% end %>
+</article>
+
+<article>
+  <h5 class="mb-4">Business Description</h5>
+  <p>
+    <%= @business.description %>This Tag Text needs to be Deleted, Ruby Code Inserted
+  </p>
+</article>
