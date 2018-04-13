@@ -1,3 +1,9 @@
+<!-- Algo -->
+<% @suggestions.first(10).each do |suggestion| %>
+  <p><%= suggestion.suggested_business.name %> <br> Match Rating: <%= suggestion.rating %>%</p>
+<% end %>
+<!-- Algo -->
+
 <div class="main-container">
     <section class="bg-dark space-sm">
         <div class="main-carousel" data-flickity='{ "cellAlign": "center", "contain": true, "prevNextButtons": false, "pageDots":false, "wrapAround":true, "autoPlay":5000, "imagesLoaded":true }'>
@@ -387,5 +393,3 @@
         <!--end of container-->
     </footer>
 </div>
-
-
