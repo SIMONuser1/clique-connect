@@ -1,11 +1,181 @@
+<div class="main-container">
+  <nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="index.html">Home</a>
+                      </li>
+                      <li class="breadcrumb-item"><a href="pages-app.html">App Pages</a>
+                      </li>
+
+
+                      <li class="breadcrumb-item active" aria-current="page">Wizard Onboarding - Alternative</li>
+                  </ol>
+              </div>
+              <!--end of col-->
+          </div>
+          <!--end of row-->
+      </div>
+      <!--end of container-->
+  </nav>
+  <section>
+      <div class="container">
+          <form class="row justify-content-around wizard">
+              <ul class="col-12 col-md-auto nav nav-tabs flex-md-column justify-content-between justify-content-md-start">
+                  <li><a href="#first" class="">Step  1</a>
+                  </li>
+                  <li><a href="#second" class="">Step 2</a>
+                  </li>
+                  <li><a href="#third" class="">Step 3</a>
+                  </li>
+                  <li><a href="#fourth" class="">Step 4</a>
+                  </li>
+              </ul>
+              <%= simple_form_for(@business) do |f| %>
+                <%= f.error_notification %>
+              <!--end of col-->
+              <div class="col col-lg-9 tab-content">
+                  <div id="first">
+                      <div class="row align-items-center mb-5">
+                          <div class="col-12 col-md-7">
+                              <h6 class="title-decorative">Step One</h6>
+                              <h3 class="h1">Create your account</h3>
+                              <span class="lead">Let's begin by creating your account. You can always change these details later</span>
+                          </div>
+                          <!--end of col-->
+                          <div class="col-12 col-md-5">
+                              <img alt="Image" src="/assets/img/graphic-man-box.svg" class="w-100" />
+                          </div>
+                          <!--end of col-->
+                      </div>
+                      <!--end of row-->
+                      <form>
+                          <div class="form-row form-group">
+                              <div class="col">
+                                  <%= f.input :name, placeholder: 'Company Name', input_html: { class: 'orm-control form-control-lg' }%>
+                              </div>
+                          </div>
+                          <div class="form-row form-group">
+                              <div class="col">
+                                  <input class="form-control form-control-lg" type="text" id="firstname" placeholder="First Name" />
+                              </div>
+                              <div class="col">
+                                  <input class="form-control form-control-lg" type="text" id="lastname" placeholder="Last Name" />
+                              </div>
+                          </div>
+                          <div class="form-row form-group">
+                              <div class="col">
+                                  <input class="form-control form-control-lg" type="email" id="email" placeholder="Email Address" />
+                              </div>
+                          </div>
+                          <div class="form-row form-group">
+                              <div class="col">
+                                  <input class="form-control form-control-lg" type="password" id="password" placeholder="Password" />
+                                  <small>Password must be at least 7 characters</small>
+                              </div>
+                          </div>
+                      </form>
+                      <button class="btn btn-success sw-btn-next mt-4" type="button">Next Step</button>
+                  </div>
+                  <div id="second">
+                      <div class="row align-items-center mb-5">
+                          <div class="col-12 col-md-7">
+                              <h6 class="title-decorative">Step Two</h6>
+                              <h3 class="h1">Tell us about you</h3>
+                              <span class="lead">Add some detail to your profile to personalise it and let others know who you are</span>
+                          </div>
+                          <!--end of col-->
+                          <div class="col-12 col-md-4">
+                              <img alt="Image" src="/assets/img/graphic-woman-writing-2.svg" class="w-100" />
+                          </div>
+                          <!--end of col-->
+                      </div>
+                      <!--end of row-->
+                      <div class="form-group">
+                          <label for="about-me">Profile Text:</label>
+                          <textarea rows="4" class="form-control form-control-lg" id="about-me"></textarea>
+                          <small>This information will be shown on your public profile</small>
+                      </div>
+                      <div>
+                          <div class="custom-control custom-checkbox custom-checkbox-switch">
+                              <input type="checkbox" class="custom-control-input" value="box-2" name="box-2" id="box-2">
+                              <label class="custom-control-label" for="box-2">Make profile public</label>
+                          </div>
+                      </div>
+                      <button class="btn btn-success sw-btn-next mt-4" type="button">Next Step</button>
+                  </div>
+                  <div id="third">
+                      <div class="row align-items-center mb-5">
+                          <div class="col-12 col-md-7">
+                              <h6 class="title-decorative">Step Three</h6>
+                              <h3 class="h1">Choose preferences</h3>
+                              <span class="lead">Select some of the options below to personalise your daily news feed</span>
+                          </div>
+                          <!--end of col-->
+                          <div class="col-12 col-md-5">
+                              <img alt="Image" src="/assets/img/graphic-man-computer.svg" class="w-100" />
+                          </div>
+                          <!--end of col-->
+                      </div>
+                      <!--end of row-->
+                      <div>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Design</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Development</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">VR</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Photography</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">User Experience</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Marketing</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Finance</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Technology</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Software</button>
+                          <button class="btn btn-outline-secondary mb-1" data-toggle="button">Engineering</button>
+                      </div>
+                      <button class="btn btn-success sw-btn-next mt-4" type="button">Next Step</button>
+                  </div>
+                  <div id="fourth">
+                      <div class="row align-items-center mb-5">
+                          <div class="col-12 col-md-6">
+                              <h6 class="title-decorative">Step Four</h6>
+                              <h3 class="h1">You're all set</h3>
+                              <span class="lead">We've set up your account and some basic details, now let's move on to your dashboard</span>
+                              <button type="submit" class="btn btn-success btn-lg">Go to dashboard</button>
+                          </div>
+                          <!--end of col-->
+                          <div class="col-12 col-md-6">
+                              <img alt="Image" src="/assets/img/graphic-woman-writing.svg" class="w-100" />
+                          </div>
+                          <!--end of col-->
+                      </div>
+                      <!--end of row-->
+                  </div>
+                  <% end %>
+              </div>
+
+              <!--end of col-->
+          </form>
+          <!--end of row-->
+      </div>
+      <!--end of container-->
+  </section>
+            <!--end of section-->
+</div>
+
 
 <%= simple_form_for(@business) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+
+    <%= f.input :name, placeholder: 'Company Name', input_html: { class: 'orm-control form-control-lg' }%>
     <%= f.input :name %>
+
     <%= f.input :industries %>
+    <%= f.input :industries, placeholder: 'Select your Industries', input_html: { class: 'orm-control form-control-lg' }%>
+<!--     custom-select mb-2 -->
+
     <%= f.input :employees %>
+
     <%= f.input :other_partners %>
     <%= f.input :other_competitors %>
     <%= f.input :desired_partnership_types %>

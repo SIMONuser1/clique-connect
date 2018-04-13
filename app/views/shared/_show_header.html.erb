@@ -5,11 +5,11 @@
               <img alt="Image" src="/assets/img/graphic-product-sidekick-thumb.jpg" class="avatar avatar-lg avatar-square rounded" />
               <div class="media-body">
                   <h1 class="mb-0"><%= @business.name %></h1>
-                  <h2 class="lead mb-2"><%= @business.description %>This Tag Text needs to be Deleted, Ruby Code Inserted</h2>
+                  <h2 class="lead mb-2"><%= @business.description %></h2>
                   <div class="d-flex align-items-center">
                      <div class="text-small">
                          <ul class="list-inline">
-                             <li class="list-inline-item"><i class="icon-heart"></i> Matched (Need to Insert Ruby)</li>
+                             <li class="list-inline-item"><i class="icon-heart"></i><%= business.match_percent_with(find(params[:id])) %> Matched (Need to Insert Ruby)</li>
                              <li class="list-inline-item"><i class="icon-message"></i> Both Clicked (need to Insert Ruby)</li>
                          </ul>
                      </div>
