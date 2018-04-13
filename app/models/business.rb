@@ -1,4 +1,7 @@
 class Business < ApplicationRecord
+  require 'open-uri'
+  require 'nokogiri'
+
   has_many :users
   has_many :partnerships, dependent: :destroy
   has_many :partners, through: :partnerships
@@ -11,11 +14,13 @@ class Business < ApplicationRecord
   has_many :business_customer_interests, dependent: :destroy
   has_many :customer_interests, through: :business_customer_interests
 
+  after_create :add_description
+
   include AlgoliaSearch
 
-    algoliasearch do
-      attribute :name, :industries, :customer_interests
-    end
+  algoliasearch do
+    attribute :name, :industries, :customer_interests
+  end
 
   enum employees: {
     :"1_to_10" => "1 to 10",
@@ -35,6 +40,36 @@ class Business < ApplicationRecord
     eco_p:'Ecosystem Partnerships'
   }
 
+  def match_percent_with(business)
+    suggestions.where(suggested_business_id: business.id).first.rating
+  end
+
+  def who_clicked_who(business)
+    click_array = click_counts(business)
+
+    if click_array.sum.zero?
+      "No clicks"
+    elsif click_array[0].zero?
+      "They clicked"
+    elsif click_array[1].zero?
+      "You clicked"
+    else
+      "Both clicked"
+    end
+  end
+
+  def mutual_clicks(business)
+    click_counts(business).min
+  end
+
+  def p_types_desired_match(business)
+    (desired_partnership_types & business.offered_partnership_types).map{ |e| PARTNERSHIP_TYPES[e.to_sym]}
+  end
+
+  def customer_skills_match(business)
+    (customer_interests & business.customer_interests).map{ |e| e.name}
+  end
+
   def update_suggestions!(weights = nil)
     suggestions.destroy_all
 
@@ -46,5 +81,28 @@ class Business < ApplicationRecord
     end
 
     suggested_businesses
+  end
+
+  def add_description
+    begin
+      html_file = open(url).read unless url.nil?
+    rescue
+      return
+    end
+    html_doc = Nokogiri::HTML(html_file)
+
+    if site_desc = html_doc.search("meta[name='description']").map{|n|n['content']}.first
+      self.description = site_desc.strip
+    end
+    self.save
+  end
+
+  private
+
+  def click_counts(business)
+    you_clicked_them = clicks.where(clicked_id: business.id).count
+    they_clicked_you = business.clicks.where(clicked_id: id).count
+
+    [you_clicked_them, they_clicked_you]
   end
 end
