@@ -11,11 +11,22 @@
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
   <body>
-    <%= render 'shared/navbar' %>
-    <%= render 'shared/flashes' %>
-    <div class="navbar-placeholder"></div>
+    <% if !!current_user %>
+      <%= render 'shared/navbar' %>
+    <% else %>
+      <%= render "shared/navbar-landing" %>
+    <% end %>
+
+    <% if !!notice %>
+      <p class="notice"><%= notice %></p>
+    <% elsif !!alert %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
+    <!-- <div class="navbar-placeholder"></div> -->
     <%= yield %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
   </body>
+
 </html>
