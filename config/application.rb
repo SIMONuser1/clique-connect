@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+SECRET = YAML.load_file('config/application.yml')
+
 module CliqueConnect
   class Application < Rails::Application
     config.generators do |generate|

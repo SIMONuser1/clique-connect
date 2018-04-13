@@ -17,6 +17,12 @@ class Business < ApplicationRecord
 
   after_create :add_description
 
+  include AlgoliaSearch
+
+  algoliasearch do
+    attribute :name, :industries, :customer_interests
+  end
+
   enum employees: {
     :"1_to_10" => "1 to 10",
     :"11_to_50" => "11 to 50",
