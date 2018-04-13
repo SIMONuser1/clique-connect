@@ -1,14 +1,7 @@
 require 'pry-byebug'
 
 class Suggestion < ApplicationRecord
-  WEIGHTS = {
-    des_p_types: 1,
-    des_partnerships: 2,
-    click_count: 3,
-    customer_interests: 2,
-    des_partner_competitor: 1,
-    acq_partner_competitor: 3
-  }
+  WEIGHTS = {:des_p_types=>1, :des_partnerships=>1, :click_count=>5, :customer_interests=>1, :des_partner_competitor=>5, :acq_partner_competitor=>1}
 
   # rating.each * (weight.values.each / weight.values.inject(&:+))
 
@@ -88,7 +81,6 @@ class Suggestion < ApplicationRecord
 
     final_rating = (weighted_ratings.sum * 100 / weights.values.sum.to_f).to_i
 
-    p final_rating
     self.rating = final_rating
   end
 end
