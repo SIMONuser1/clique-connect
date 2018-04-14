@@ -1,55 +1,4 @@
-<!-- Algo -->
-<% @suggestions.first(10).each do |suggestion| %>
-  <p><%= suggestion.suggested_business.name %> <br> Match Rating: <%= suggestion.rating %>%</p>
-<% end %>
-<!-- Algo -->
-
 <div class="main-container">
-    <section class="bg-dark space-sm">
-        <div class="main-carousel" data-flickity='{ "cellAlign": "center", "contain": true, "prevNextButtons": false, "pageDots":false, "wrapAround":true, "autoPlay":5000, "imagesLoaded":true }'>
-
-
-            <div class="carousel-cell col-9 col-md-8 col-lg-5 text-center">
-                <a href="#" class="d-block mb-3">
-                    <img alt="Image" src="/assets/img/graphic-product-bench.jpg" class="img-fluid rounded" />
-                </a>
-                <span class="h6">Bench - Accounting for creative people</span>
-            </div>
-
-
-
-            <div class="carousel-cell col-9 col-md-8 col-lg-5 text-center">
-                <a href="#" class="d-block mb-3">
-                    <img alt="Image" src="/assets/img/graphic-product-kin.jpg" class="img-fluid rounded" />
-                </a>
-                <span class="h6">Kin - The digital fashion assistant</span>
-            </div>
-
-
-
-            <div class="carousel-cell col-9 col-md-8 col-lg-5 text-center">
-                <a href="#" class="d-block mb-3">
-                    <img alt="Image" src="/assets/img/graphic-product-paydar.jpg" class="img-fluid rounded" />
-                </a>
-                <span class="h6">Paydar - Location based touch payments</span>
-            </div>
-
-
-
-
-
-            <div class="carousel-cell col-9 col-md-8 col-lg-5 text-center">
-                <a href="#" class="d-block mb-3">
-                    <img alt="Image" src="/assets/img/graphic-product-pitstop.jpg" class="img-fluid rounded" />
-                </a>
-                <span class="h6">Pitstop - Browser-based project management</span>
-            </div>
-
-
-
-
-        </div>
-    </section>
     <section>
         <div class="container">
             <div class="row">
@@ -59,12 +8,9 @@
                     </form>
                     <nav class="nav flex-md-column">
                         <a href="#" class="nav-link active">All</a>
-                        <a href="#" class="nav-link">Health &amp; Fitness</a>
-                        <a href="#" class="nav-link">Lifestyle</a>
-                        <a href="#" class="nav-link">Music</a>
-                        <a href="#" class="nav-link">Technology</a>
-                        <a href="#" class="nav-link">Productivity</a>
-                        <a href="#" class="nav-link">Shopping</a>
+                        <a href="#" class="nav-link">My Matches</a>
+                        <a href="#" class="nav-link">Matched with me</a>
+                        <a href="#" class="nav-link">The Hail Mary</a>
                     </nav>
                 </div>
                 <!--end of col-->
@@ -72,7 +18,7 @@
                     <div class="card card-sm">
                         <div class="card-header d-flex bg-secondary justify-content-between align-items-center">
                             <div>
-                                <h6>Featured Products</h6>
+                                <h6>My Matched Suggestions</h6>
                             </div>
                             <form class="d-flex align-items-center">
                                 <span class="mr-2 text-muted text-small text-nowrap">Sort by:</span>
