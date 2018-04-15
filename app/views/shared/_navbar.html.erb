@@ -32,7 +32,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Settings</a>
                                 <a class="dropdown-item" href="#">Groups</a>
-                                <a class="dropdown-item" href="#">Log out</a>
+                                <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                             </div>
                         </li>
                     </ul>
