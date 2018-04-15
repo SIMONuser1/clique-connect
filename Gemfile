@@ -10,6 +10,7 @@ gem 'rails', '5.1.5'
 gem 'redis'
 gem 'jquery-rails'
 gem 'rubyXL'
+gem 'faker'
 
 gem 'autoprefixer-rails'
 # gem 'bootstrap', '~> 4.0.0'
