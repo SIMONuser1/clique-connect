@@ -1,10 +1,12 @@
 require 'rubyXL' # Assuming rubygems is already required
+require 'faker'
 
 def def_current_business(row)
   Business.where(name: row.cells[0].value).first
 end
 
 puts "Clearing database..."
+User.destroy_all
 Suggestion.destroy_all
 Click.destroy_all
 BusinessCustomerInterest.destroy_all
@@ -19,7 +21,7 @@ worksheet_bus = workbook['Businesses'][1..-1]
 worksheet_cli = workbook['Clicks'][1..-1]
 worksheet_sug= workbook['Suggestions'][1..-1]
 
-puts "Creating businesses..."
+puts "Creating businesses and users..."
 worksheet_bus.each do |row|
   des_p_types = row.cells[3].value.nil? ? [] : row.cells[3].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
   off_p_types = row.cells[4].value.nil? ? [] : row.cells[4].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
@@ -34,6 +36,9 @@ worksheet_bus.each do |row|
     url: bus_url
   }
   current_business = Business.create!(business_hash)
+
+  user = User.create!(email: Faker::Internet.email, password: 'password', password_confirmation: 'password')
+  user.update!(business: current_business)
 end
 
 
