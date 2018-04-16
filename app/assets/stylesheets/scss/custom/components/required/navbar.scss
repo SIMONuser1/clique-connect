@@ -7,6 +7,15 @@
   z-index: 10;
 }
 
+#search-results-container em {
+  background: #0275d8;
+  font-style: normal !important;
+  color: white;
+}
+
+#search-results-container .search-result-item-name {
+  padding-right: 10px;
+}
 
 
 // Bootstrap overrides
