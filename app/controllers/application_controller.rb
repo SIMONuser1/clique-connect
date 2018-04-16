@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
 
   before_action :user_needs_business
 
-  def after_sign_up_path_for(resource_or_scope)
-    raise
-    welcome_path
-  end
+#   def after_sign_up_path_for(resource_or_scope)
+#     raise
+#     welcome_path
+#   end
 
   def user_needs_business
     unless current_user.business
