@@ -13,6 +13,7 @@ class Business < ApplicationRecord
   has_many :businesses_clicked, through: :clicks, source: :clicked
   has_many :business_customer_interests, dependent: :destroy
   has_many :customer_interests, through: :business_customer_interests
+  mount_uploader :photo, PhotoUploader
 
   after_create :add_description, :add_domain
 
@@ -20,6 +21,7 @@ class Business < ApplicationRecord
 
   algoliasearch do
     attribute :name, :industries, :customer_interests
+    searchableAttributes ['name']
   end
 
   enum employees: {
@@ -60,6 +62,10 @@ class Business < ApplicationRecord
 
   def mutual_clicks(business)
     click_counts(business).min
+  end
+
+  def photo_url(business)
+    suggestions.photo
   end
 
   def p_types_desired_match(business)
