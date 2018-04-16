@@ -5,6 +5,9 @@ def def_current_business(row)
   Business.where(name: row.cells[0].value).first
 end
 
+puts "Clearing Algolia Index..."
+Business.clear_index!
+
 puts "Clearing database..."
 User.destroy_all
 Suggestion.destroy_all

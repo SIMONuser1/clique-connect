@@ -1,6 +1,12 @@
 <article>
-  <strong>Industries:</strong>
-  <% @business.industries.each do |list| %>
+  <strong>Matched Industries Match:</strong><br>
+  <% current_user.business.industries_match(@business).each do |list| %>
+    <span class="badge badge-secondary"><%= list %></span>
+  <% end %>
+</article>
+<article>
+  <strong>Matched Customer Interests:</strong><br>
+  <% current_user.business.customer_skills_match(@business).each do |list| %>
     <span class="badge badge-secondary"><%= list %></span>
   <% end %>
 </article>
@@ -8,6 +14,6 @@
 <article>
   <h5 class="mb-4">Business Description</h5>
   <p>
-    <%= @business.description %>This Tag Text needs to be Deleted, Ruby Code Inserted
+    <%= @business.description %>
   </p>
 </article>
