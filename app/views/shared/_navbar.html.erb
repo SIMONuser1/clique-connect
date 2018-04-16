@@ -2,7 +2,7 @@
     <div class="bg-dark navbar-dark" data-sticky="top">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/">
                     <img alt="Wingman" src="/assets/img/clique.png" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,7 @@
                         </li>
                     </ul>
                     <form class="form-inline col p-0 pl-md-2 pr-md-3">
-                        <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" id="algolia-search">
+                        <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" id="algolia-search" autocomplete="off">
                     </form>
 
 
@@ -44,12 +44,8 @@
         <!--end of container-->
     </div>
 </div>
-<div class="search-results-container">
-  <div class="container">
-    <div class="col-7 offset-md-4">
-      <ul class="list-group" id="search-results-list">
-      </ul>
-    </div>
-  </div>
+<div id="search-results-container">
+  <ul class="list-group">
+  </ul>
 </div>
 
