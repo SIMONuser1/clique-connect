@@ -1,6 +1,7 @@
 class SuggestionsController < ApplicationController
   def index
-    # @suggestions = current_user.suggestions
+    current_user.business.update_suggestions!
+    @suggestions = current_user.business.suggestions.order(:rating)
   end
 
   def update
