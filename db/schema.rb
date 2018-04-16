@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20180416031331) do
     t.text "description"
     t.string "tagline"
     t.string "youtube_url"
+    t.string "business_domain"
     t.string "photo"
   end
 

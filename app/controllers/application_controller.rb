@@ -7,7 +7,10 @@ class ApplicationController < ActionController::Base
   before_action :user_needs_business
 
   def user_needs_business
-    # redirect_to welcome_path, notice: "You must have a business scrub" unless current_user.business
+    unless current_user.business
+      # raise
+      redirect_to welcome_path, notice: "You must have a business scrub"
+    end
   end
 
   def configure_permitted_parameters

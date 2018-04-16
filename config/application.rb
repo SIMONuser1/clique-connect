@@ -6,6 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# include ApplicationHelper
 
 module CliqueConnect
   class Application < Rails::Application
@@ -13,6 +14,11 @@ module CliqueConnect
       generate.assets false
       generate.helper false
       generate.test_framework  :test_unit, fixture: false
+    end
+
+    config.to_prepare do
+      Devise::RegistrationsController.skip_before_action :user_needs_business
+      Devise::SessionsController.skip_before_action :user_needs_business
     end
 
     # Initialize configuration defaults for originally generated Rails version.

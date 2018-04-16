@@ -15,7 +15,7 @@ class Business < ApplicationRecord
   has_many :customer_interests, through: :business_customer_interests
   mount_uploader :photo, PhotoUploader
 
-  after_create :add_description
+  after_create :add_description, :add_domain
 
   include AlgoliaSearch
 
@@ -100,7 +100,15 @@ class Business < ApplicationRecord
     if site_desc = html_doc.search("meta[name='description']").map{|n|n['content']}.first
       self.description = site_desc.strip
     end
-    self.save
+    save
+  end
+
+  def add_domain
+    unless url.empty?
+      domain = url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
+      self.business_domain = domain # unless domain.nil?
+      save
+    end
   end
 
   private
