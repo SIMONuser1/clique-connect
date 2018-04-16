@@ -11,6 +11,8 @@ gem 'redis'
 gem 'jquery-rails'
 gem 'rubyXL'
 gem 'faker'
+gem 'cloudinary'
+gem 'carrierwave', '~> 1.2'
 
 gem 'autoprefixer-rails'
 # gem 'bootstrap', '~> 4.0.0'
@@ -19,7 +21,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
-gem "algoliasearch-rails"
+gem 'algoliasearch-rails'
 
 
 group :development do
