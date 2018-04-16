@@ -1,0 +1,6 @@
+<%= simple_form_for(@business) do |f| %>
+  <%= f.input :business, placeholder: @user_business.name, input_html: { class: 'orm-control form-control-lg' }%>
+  <%= f.button :update %>
+<% end %>
+
+ <!-- <% current_user.update(business: @user_business) if @user_business %> -->

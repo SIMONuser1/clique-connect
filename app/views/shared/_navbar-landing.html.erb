@@ -2,16 +2,17 @@
     <div class="bg-white navbar-light position-fixed" data-sticky="top" style="max-width: 1440px; top: 0px;">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
+              <%= link_to image_tag('img/clique.png', alt: 'Clique Connect'), root_path, class: 'navbar-brand' %>
+<!--                 <a class="navbar-brand" href="index.html">
                     <img alt="Wingman" src="/assets/img/clique.png">
-                </a>
+                </a> -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="icon-menu h4"></i>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="index.html" class="nav-link">Home</a>
+                          <%= link_to 'Home', root_path, class: 'nav-link' %>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown">About Us</a>

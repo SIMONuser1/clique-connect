@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   resources :businesses
   devise_for :users
+
+  authenticated :user do
+    root 'suggestions#index', as: :authenticated_root
+  end
+
   root to: 'pages#home'
 
   get '/welcome', to: 'pages#welcome'
