@@ -16,11 +16,6 @@ module CliqueConnect
       generate.test_framework  :test_unit, fixture: false
     end
 
-    config.to_prepare do
-      Devise::RegistrationsController.skip_before_action :user_needs_business
-      Devise::SessionsController.skip_before_action :user_needs_business
-    end
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 

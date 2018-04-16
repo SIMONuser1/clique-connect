@@ -28,7 +28,9 @@ puts "Creating businesses and users..."
 worksheet_bus.each do |row|
   des_p_types = row.cells[3].value.nil? ? [] : row.cells[3].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
   off_p_types = row.cells[4].value.nil? ? [] : row.cells[4].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
-  bus_url = row.cells[9]. nil? ? "" : row.cells[9].value
+  bus_url = row.cells[9].nil? ? "" : row.cells[9].value
+
+  user = User.new()
 
   business_hash = {
     name: row.cells[0].value,
@@ -38,10 +40,31 @@ worksheet_bus.each do |row|
     offered_partnership_types: off_p_types,
     url: bus_url
   }
-  current_business = Business.create!(business_hash)
 
-  user = User.create!(email: Faker::Internet.email, password: 'password', password_confirmation: 'password')
-  user.update!(business: current_business)
+  business = Business.create!(business_hash)
+  unless bus_url.empty?
+    domain = business.url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
+  end
+
+  email = if domain.nil?
+     Faker::Internet.email
+  else
+    "#{Faker::Name.first_name}@#{domain}"
+  end
+
+  user_hash = {
+    email: email,
+    password: 'password',
+    password_confirmation: 'password',
+    business_id: business.id
+  }
+
+  user = User.create!(user_hash)
+  business.add_domain
+  business.save!
+
+  # current_business = Business.create!(business_hash)
+  # user.update!(business: current_business)
 end
 
 

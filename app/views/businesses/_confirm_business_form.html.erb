@@ -1,6 +1,42 @@
-<%= simple_form_for(@business) do |f| %>
-  <%= f.input :business, placeholder: @user_business.name, input_html: { class: 'orm-control form-control-lg' }%>
-  <%= f.button :update %>
-<% end %>
+<section class="height-70">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 col-lg-5">
 
- <!-- <% current_user.update(business: @user_business) if @user_business %> -->
+              <p>Based on your email address your business has been recognised as: <%= user_business.name %></p>
+
+              <p>click here to assign this as your business</p>
+
+              <%= link_to assign_business_path(business: @user_business) do%>
+                <div class="btn btn-success">
+                  Update!
+                </div>
+              <% end %>
+
+              <p>or click here to create a new business</p>
+
+              <%= link_to new_business_path do%>
+                <div class="btn btn-success">
+                  Create new!
+                </div>
+              <% end %>
+
+                <!-- <div class="card card-lg text-center">
+                    <div class="card-body">
+                        <i class="icon-add-to-list display-4 opacity-20"></i>
+                        <h1 class="h5">You haven't created anything yet</h1>
+                        <p>
+                            Start creating all types of things by hitting the button below. Let's start the journey now
+                        </p>
+                        <a href="#" class="btn btn-lg btn-primary">Create something</a>
+                    </div>
+                </div> -->
+            </div>
+            <!--end of col-->
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>
+
+
