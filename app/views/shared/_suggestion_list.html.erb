@@ -2,12 +2,7 @@
   <li class="list-group-item">
     <div class="media align-items-center">
       <a href="#" class="mr-4">
-        <% if suggestion.business.photo.nil? %>
-          <%= image_tag '//logo.clearbit.com/#{suggestion.suggested_business.business_domain}', class: "rounded avatar avatar-lg" %>
-        <% else %>
-          <%= image_tag suggestion.suggested_business.photo, class: "rounded avatar avatar-lg" %>
-        <% end %>
-          <!-- <img alt="Image" src="/assets/img/graphic-product-sidekick-thumb.jpg" class="rounded avatar avatar-lg" /> -->
+          <%= cl_image_tag suggestion.suggested_business.photo, class: 'rounded avatar avatar-lg' %>
       </a>
       <div class="media-body">
         <div class="d-flex justify-content-between mb-2">

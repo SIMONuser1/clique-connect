@@ -2,15 +2,18 @@
       <div class="row justify-content-between">
         <div class="col">
           <div class="media align-items-center">
-              <img alt="Image" src="/assets/img/graphic-product-sidekick-thumb.jpg" class="avatar avatar-lg avatar-square rounded" />
+              <%= cl_image_tag(@business.photo, {class: "rounded avatar avatar-lg"}) %>
+
               <div class="media-body">
                   <h1 class="mb-0"><%= @business.name %></h1>
-                  <h2 class="lead mb-2"><%= @business.description %></h2>
+                  <h2 class="lead mb-2"><%= @business.tagline.to_s[0...80] %>...</h2>
                   <div class="d-flex align-items-center">
                      <div class="text-small">
                          <ul class="list-inline">
-                             <li class="list-inline-item"><i class="icon-heart"></i> Matched (Need to Insert Ruby)</li>
-                             <li class="list-inline-item"><i class="icon-message"></i> Both Clicked (need to Insert Ruby)</li>
+                             <li class="list-inline-item"><i class="fas fa-hand-holding-heart"></i> Match Rate:
+                              <%= current_user.business.match_percent_with(@business) %>%
+                            </li>
+                             <li class="list-inline-item"><i class="fas fa-eye"></i> <%= current_user.business.who_clicked_who(@business) %></li>
                          </ul>
                      </div>
                   </div>

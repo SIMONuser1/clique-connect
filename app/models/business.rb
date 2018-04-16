@@ -76,6 +76,10 @@ class Business < ApplicationRecord
     (customer_interests & business.customer_interests).map{ |e| e.name}
   end
 
+  def industries_match(business)
+    industries & business.industries
+  end
+
   def update_suggestions!(weights = nil)
     suggestions.destroy_all
 

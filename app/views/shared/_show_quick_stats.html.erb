@@ -2,25 +2,19 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             <div class="d-flex justify-content-between">
-                <div><i class="icon-text-document mr-1"></i> 3 Mutual Clicks (need to Insert Ruby)</div>
+                <div><i class="icon-text-document mr-1"></i>Mutual Views: <%= current_user.business.mutual_clicks(@business) %></div>
 
             </div>
         </li>
         <li class="list-group-item">
             <div class="d-flex justify-content-between">
-                <div><i class="icon-edit mr-1"></i>7 Matched Skills (need to Insert Ruby)</div>
+                <div><i class="icon-edit mr-1"></i>Matched Skills: <%= current_user.business.customer_skills_match(@business).count %> </div>
 
             </div>
         </li>
         <li class="list-group-item">
             <div class="d-flex justify-content-between">
-                <div><i class="icon-thumbs-up mr-1"></i>7 Matched Interests (need to Insert Ruby)</div>
-
-            </div>
-        </li>
-        <li class="list-group-item">
-            <div class="d-flex justify-content-between">
-                <div><i class="icon-share mr-1"></i> Something Else? (need to Insert Ruby)</div>
+                <div><i class="icon-thumbs-up mr-1"></i>Matched Interests: <%= current_user.business.customer_skills_match(@business).count %></div>
 
             </div>
         </li>
