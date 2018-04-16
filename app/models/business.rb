@@ -20,8 +20,8 @@ class Business < ApplicationRecord
   include AlgoliaSearch
 
   algoliasearch do
-    # attribute :name, :industries, :customer_interests
-    attribute :name
+    attribute :name, :industries, :customer_interests
+    searchableAttributes ['name']
   end
 
   enum employees: {
