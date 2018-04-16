@@ -39,6 +39,17 @@ Step 4</a>
                       </div>
                       <!--end of row-->
                       <div>
+                        <div class="form-row form-group">
+                            <div class="col">
+                            <!-- [...] -->
+
+                            <%= f.input :photo, input_html: {class: 'custom-file'} %>
+                            <%= f.input :photo_cache, as: :hidden %>
+
+                            </div>
+                          </div>
+                            <!-- [...] -->
+
                           <div class="form-row form-group">
                             <div class="col">
                               <%= f.input :name, placeholder: 'Company Name', input_html: { class: 'orm-control form-control-lg' }%>
@@ -154,6 +165,7 @@ Step 4</a>
                               <span class="lead">We have set up your Business. When you get to the Dashboard, AIME will have created your initial Matches. As you use Clique, AIME will continue to provide reccomendations based upon how you and every other business interacts on the platform. Let's get started! </span>
                               <%= f.button :submit %>
                           </div>
+                          <% end %>
                           <!--end of col-->
                           <div class="col-12 col-md-6">
                               <img alt="Image" src="/assets/img/graphic-woman-writing.svg" class="w-100" />
@@ -162,9 +174,7 @@ Step 4</a>
                       </div>
                       <!--end of row-->
                   </div>
-                  <% end %>
               </div>
-
               <!--end of col-->
           </form>
           <!--end of row-->
