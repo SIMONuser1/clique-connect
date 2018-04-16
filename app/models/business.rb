@@ -15,7 +15,7 @@ class Business < ApplicationRecord
   has_many :customer_interests, through: :business_customer_interests
   mount_uploader :photo, PhotoUploader
 
-  after_create :add_description, :add_domain
+  after_create :add_description
 
   include AlgoliaSearch
 
@@ -104,8 +104,9 @@ class Business < ApplicationRecord
   end
 
   def add_domain
-    unless url.empty?
-      domain = url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
+    if self.business_domain.nil? && users.first
+      domain = users.first.email.match(/(?<=@).+/)[0]
+     # domain = url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
       self.business_domain = domain # unless domain.nil?
       save
     end
