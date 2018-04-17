@@ -55,11 +55,13 @@ class Suggestion < ApplicationRecord
 
     # Check if suggested business is a competitor to desired partners
     des_partner_competitor_rating = (business.partnerships.desired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
-    des_partner_competitor_rating /= business.partnerships.desired.count.to_f
+    des_partner_divisor = business.partnerships.desired.count.to_f
+    des_partner_competitor_rating /= des_partner_divisor unless des_partner_divisor.zero?
 
     # Check if suggested business is a competitor to acquired partners
     acq_partner_competitor_rating = (business.partnerships.acquired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
-    acq_partner_competitor_rating /= business.partnerships.acquired.count.to_f
+    acq_partner_divisor = business.partnerships.acquired.count.to_f
+    acq_partner_competitor_rating /= acq_partner_divisor unless acq_partner_divisor.zero?
 
     # insert variable weighting multipliers for each rating based on user preferences
     # Use self#weights
