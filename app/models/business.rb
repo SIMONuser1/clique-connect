@@ -102,7 +102,6 @@ class Business < ApplicationRecord
         weights: weights
       )
     end
-
     suggested_businesses
   end
 
