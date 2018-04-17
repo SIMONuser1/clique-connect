@@ -1,52 +1,13 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between">
-        <div>
-            <span class="h6">Who can you Contact</span>
-        </div>
-        <a href="#">View all &rsaquo;</a>
+      <div>
+        <span class="h6">Contacts at this Company</span>
+      </div>
+
     </div>
     <div class="card-body">
-        <ul class="list-unstyled list-spacing-sm">
-            <li>
-                <a class="media" href="#">
-                    <img alt="Image" src="/assets/img/avatar-male-1.jpg" class="avatar avatar-sm mr-3" />
-                    <div class="media-body">
-                        <span class="h6 mb-0"><%= @business.users.name.first %></span>
-                        <span class="text-muted">Australia (Need Ruby Code)</span>
-                    </div>
-                </a>
-            </li>
-
-            <li>
-                <a class="media" href="#">
-                    <img alt="Image" src="/assets/img/avatar-female-1.jpg" class="avatar avatar-sm mr-3" />
-                    <div class="media-body">
-                        <span class="h6 mb-0">Caitlyn Halsy (Need Ruby Code)</span>
-                        <span class="text-muted">New Zealand (Need Ruby Code)</span>
-                    </div>
-                </a>
-            </li>
-
-            <li>
-                <a class="media" href="#">
-                    <img alt="Image" src="/assets/img/avatar-male-2.jpg" class="avatar avatar-sm mr-3" />
-                    <div class="media-body">
-                        <span class="h6 mb-0">Toby Marsh (Need Ruby Code)</span>
-                        <span class="text-muted">Australia (Need Ruby Code)</span>
-                    </div>
-                </a>
-            </li>
-
-            <li>
-                <a class="media" href="#">
-                    <img alt="Image" src="/assets/img/avatar-female-2.jpg" class="avatar avatar-sm mr-3" />
-                    <div class="media-body">
-                        <span class="h6 mb-0">Lucille Freebody (Need Ruby Code)</span>
-                        <span class="text-muted">USA (Need Ruby Code)</span>
-                    </div>
-                </a>
-            </li>
-
-        </ul>
+      <ul class="list-unstyled list-spacing-sm">
+        <%= render 'shared/contacts' %>
+      </ul>
     </div>
 </div>
