@@ -12,6 +12,7 @@ class PagesController < ApplicationController
 
   def assign_business
     current_user.update!(business_id: params[:business])
+    # current_user.business.update_suggestions!
     redirect_to suggestions_path
   end
 
