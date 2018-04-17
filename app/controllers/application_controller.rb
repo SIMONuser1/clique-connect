@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def user_needs_business
     unless current_user.business
       # raise
-      redirect_to welcome_path, notice: "You must have a business scrub"
+      redirect_to welcome_path, notice: "You must have a business"
     end
   end
 

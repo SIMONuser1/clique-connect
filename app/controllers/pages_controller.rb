@@ -8,6 +8,7 @@ class PagesController < ApplicationController
   def welcome
     email_domain = current_user.email.match(/(?<=@).+/)[0]
     @user_business = Business.where(business_domain: email_domain).first
+    redirect_to new_business_path if @user_business.nil?
   end
 
   def assign_business

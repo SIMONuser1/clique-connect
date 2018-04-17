@@ -133,9 +133,8 @@ worksheet_cli.each do |row|
 end
 
 puts "Adding suggestions..."
-worksheet_sug.each do |row|
-  current_business = def_current_business(row)
-  current_business.update_suggestions!
+Business.all.each do |business|
+  business.update_suggestions!
 end
 
 puts "Done!"

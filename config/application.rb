@@ -19,6 +19,8 @@ module CliqueConnect
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    # paths.clique-connect.views << "clique-connect/views/devise" # may need this for devise views
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
