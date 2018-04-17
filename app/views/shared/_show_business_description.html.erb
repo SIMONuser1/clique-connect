@@ -1,5 +1,5 @@
 <article>
-  <strong>Matched Industries Match:</strong><br>
+  <p>Matched Industries Match:</p><br>
   <% if current_user.business.industries_match(@business).empty? %>
     <span class="badge badge-secondary">No Industry Matches</span>
   <% else %>
@@ -10,7 +10,7 @@
 
 </article>
 <article>
-  <strong>Matched Customer Interests:</strong><br>
+  <p>Matched Customer Interests:</p><br>
   <% if current_user.business.customer_skills_match(@business).empty? %>
     <span class="badge badge-secondary">No Customer Skill Matches</span>
   <% else %>

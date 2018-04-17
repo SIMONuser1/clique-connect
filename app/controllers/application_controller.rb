@@ -19,7 +19,9 @@ class ApplicationController < ActionController::Base
   end
 
   def user_photo
-    @photo = current_user.photo
+    unless !current_user
+      @photo = current_user.photo
+    end
   end
 
   def assign_business(business)

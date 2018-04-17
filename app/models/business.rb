@@ -60,8 +60,20 @@ class Business < ApplicationRecord
     end
   end
 
+  # def users_in_business_of(business)
+  #   business.users
+  #   #will be an array of Users
+  # end
+
   def mutual_clicks(business)
     click_counts(business).min
+  end
+
+  def companies_competitors_clicked
+    a = competitors.sample.clicks.limit(6)
+    a.map do |click|
+      Business.find(click.clicked_id)
+    end
   end
 
   def photo_url(business)
@@ -119,6 +131,10 @@ class Business < ApplicationRecord
   def youtube_regex
     youtube_url.match(/\=(.*)/)[1]
   end
+
+  def also_clicked
+     Business.where("industries && ARRAY[?]::varchar[]", industries).where.not(id: self.id).limit(4)
+   end
 
   private
 

@@ -11,7 +11,7 @@
               <%= link_to business_path(suggestion.suggested_business) do %>
                 <h4><%= suggestion.suggested_business.name %></h4>
               <% end %>
-            <span><%= suggestion.suggested_business.tagline.to_s[0...80] %>...</span>
+            <span><%= suggestion.suggested_business.description.to_s[0...80] %>...</span>
           </div>
           <div class="dropdown">
               <button class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-no-arrow" type="button" id="SidekickButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

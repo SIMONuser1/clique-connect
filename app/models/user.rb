@@ -7,4 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :business, required: false
   mount_uploader :photo, PhotoUploader
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
