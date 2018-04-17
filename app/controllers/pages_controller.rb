@@ -18,7 +18,8 @@ class PagesController < ApplicationController
   def search
     # @query = params[:filters][:query]
     @query = params[:query]
-    binding.pry
+    @result = Business.search(@query)
+    # binding.pry
   end
 
   # def domain_regex(url)
