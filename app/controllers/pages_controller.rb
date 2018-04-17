@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   def search
     # @query = params[:filters][:query]
     @query = params[:query]
-    @result = Business.search(@query)
+    @results = Business.search(@query, { facets: '*' })
     # binding.pry
   end
 
