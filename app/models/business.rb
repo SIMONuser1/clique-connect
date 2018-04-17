@@ -116,6 +116,10 @@ class Business < ApplicationRecord
     end
   end
 
+  def youtube_regex
+    youtube_url.match(/\=(.*)/)[1]
+  end
+
   private
 
   def click_counts(business)
