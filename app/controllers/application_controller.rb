@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-
   before_action :user_needs_business
+  before_action :user_photo
 
 #   def after_sign_up_path_for(resource_or_scope)
 #     raise
@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
       # raise
       redirect_to welcome_path, notice: "You must have a business scrub"
     end
+  end
+
+  def user_photo
+    @photo = current_user.photo
   end
 
   def assign_business(business)
