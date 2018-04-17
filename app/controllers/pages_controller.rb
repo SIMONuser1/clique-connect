@@ -15,6 +15,9 @@ class PagesController < ApplicationController
     redirect_to suggestions_path
   end
 
+  def search
+  end
+
   # def domain_regex(url)
   #   url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
   # end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/users', to: 'pages#welcome', as: :user_root # creates user_root_path
   get '/welcome', to: 'pages#welcome'
   get '/assign_business', to: 'pages#assign_business'
+  get '/search', to: 'pages#search'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

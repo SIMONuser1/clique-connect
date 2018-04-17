@@ -12,8 +12,8 @@
                             <%= link_to 'Home', suggestions_path, :class => 'nav-link' %>
                         </li>
                     </ul>
-                    <form class="form-inline col p-0 pl-md-2 pr-md-3">
-                        <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" id="algolia-search" autocomplete="off">
+                    <form class="form-inline col p-0 pl-md-2 pr-md-3" action="/search?" method="get">
+                        <input class="form-control w-100" type="search" placeholder="Search for a company" aria-label="Search" id="algolia-search" autocomplete="off" name="query">
                     </form>
 
 
