@@ -21,6 +21,7 @@ class Business < ApplicationRecord
 
   algoliasearch do
     attribute :name, :industries, :customer_interests
+    attributesForFaceting [:customer_interests]
     searchableAttributes ['name']
   end
 

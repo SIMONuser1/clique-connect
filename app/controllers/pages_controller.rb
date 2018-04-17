@@ -15,6 +15,13 @@ class PagesController < ApplicationController
     redirect_to suggestions_path
   end
 
+  def search
+    # @query = params[:filters][:query]
+    @query = params[:query]
+    @results = Business.search(@query, { facets: '*' })
+    # binding.pry
+  end
+
   # def domain_regex(url)
   #   url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
   # end
