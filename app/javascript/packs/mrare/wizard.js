@@ -12,4 +12,4 @@ $(document).ready(() => {
     toolbarSettings: { toolbarPosition: 'none' },
   });
 });
-zz
+

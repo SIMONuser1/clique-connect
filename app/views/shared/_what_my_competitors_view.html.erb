@@ -1,4 +1,4 @@
-<% @business.companies_competitors_clicked.each do |list| %>
+<% current_user.business.remove_self_from_list(@business.companies_competitors_clicked).each do |list| %>
   <li class="list-group-item">
     <div class="media align-items-center">
       <a href="#" class="mr-4">

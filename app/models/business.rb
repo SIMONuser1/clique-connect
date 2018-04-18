@@ -65,6 +65,9 @@ class Business < ApplicationRecord
   #   business.users
   #   #will be an array of Users
   # end
+  def remove_self_from_list(list)
+   list - [self]
+  end
 
   def mutual_clicks(business)
     click_counts(business).min
