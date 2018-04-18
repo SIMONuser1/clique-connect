@@ -26,18 +26,18 @@ ActiveRecord::Schema.define(version: 20180417021537) do
 
   create_table "businesses", force: :cascade do |t|
     t.string "name" # done
-    t.string "industries", default: [], array: true
+    t.string "industries", default: [], array: true # done
     t.string "employees" # done
-    t.string "other_partners", default: [], array: true
-    t.string "other_competitors", default: [], array: true
+    t.string "other_partners", default: [], array: true # done
+    t.string "other_competitors", default: [], array: true # done
     t.datetime "created_at", null: false # ignore
     t.datetime "updated_at", null: false # ignore
-    t.string "desired_partnership_types", array: true
-    t.string "offered_partnership_types", array: true
+    t.string "desired_partnership_types", array: true # done
+    t.string "offered_partnership_types", array: true # done
     t.string "url" # done
     t.text "description" # ignore
     t.string "tagline" # done
-    t.string "youtube_url"
+    t.string "youtube_url" # done
     t.string "business_domain" # ignore
     t.string "photo" # done
   end
