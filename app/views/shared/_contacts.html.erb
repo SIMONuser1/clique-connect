@@ -3,8 +3,8 @@
     <a class="media">
       <%= cl_image_tag list.photo, class: 'avatar avatar-sm mr-3' %>
       <div class="media-body">
-        <span class="h6 mb-0"> Name: <%= list.full_name %></span>
-        <span class="text-muted">LOCATION<%= list.location %></span>
+        <span class="h6 mb-0"><%= list.full_name %></span>
+        <span class="text-muted"><%= list.location %></span>
       </div>
     </a>
   </li>

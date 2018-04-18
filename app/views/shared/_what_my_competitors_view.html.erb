@@ -7,9 +7,9 @@
       <div class="media-body">
         <div class="d-flex justify-content-between mb-2">
           <div>
-            <a href="#" class="mb-1">
+            <%= link_to business_path(list), class: "mb-1" do %>
                 <h4><%= list.name %></h4>
-            </a>
+            <% end %>
             <span><%= list.description.to_s[0...80] %>...</span>
           </div>
             <div class="dropdown">

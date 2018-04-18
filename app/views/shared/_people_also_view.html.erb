@@ -3,9 +3,9 @@
     <div class="media">
         <%= cl_image_tag list.photo, class: 'avatar avatar-square rounded mr-3' %>
       <div class="media-body">
-        <a href="#">
+        <%= link_to business_path(list) do %>
           <span class="h6"><%= list.name %></span>
-        </a>
+        <% end %>
         <span class="badge badge-secondary"><%= current_user.business.industries_match(list).first %></span>
         <div class="text-muted">
             <ul class="list-inline">
