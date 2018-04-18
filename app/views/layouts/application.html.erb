@@ -14,22 +14,23 @@
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
   <body>
-    <% if !!current_user %>
-      <%= render 'shared/navbar' %>
-    <% else %>
-      <%= render 'shared/navbar-landing' %>
-    <% end %>
+    <div class="main-container">
+      <% if !!current_user %>
+        <%= render 'shared/navbar' %>
+      <% else %>
+        <%= render 'shared/navbar-landing' %>
+      <% end %>
 
-    <% if !!notice %>
-      <p class="notice"><%= notice %></p>
-    <% elsif !!alert %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-    <%= yield %>
-    <%= render 'shared/footer' %>
+      <% if !!notice %>
+        <p class="notice"><%= notice %></p>
+      <% elsif !!alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+      <%= yield %>
+      <%= render 'shared/footer' %>
+    </div>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
     <%= cloudinary_js_config %>
   </body>
-
 </html>
