@@ -3,12 +3,14 @@
 //
 
 .alert {
-  position: relative;
-  padding: $alert-padding-y $alert-padding-x;
-  margin-bottom: $alert-margin-bottom;
-  border: $alert-border-width solid transparent;
-  @include border-radius($alert-border-radius);
+    background-color: #4582EC;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px;
+    padding :20px;
 }
+
 
 // Headings for larger alerts
 .alert-heading {
