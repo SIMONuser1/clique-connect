@@ -2,9 +2,16 @@ import $ from 'jquery';
 
 // 1. Variables
 const client = algoliasearch("2NKIO6XW2P", "a44bd17fa5e781bf38caa1cefb51bc33");
+let index = ""
 // ApplicationID and Search-Only-API-Key
 
-const index = client.initIndex('Business');
+
+if (window.location.hostname === "localhost") {
+  index = client.initIndex('Business_development');
+} else {
+  index = client.initIndex('Business_production');
+};
+
 const searchOptions = { hitsPerPage: 10, page: 0 };
 
 const navbar = document.querySelector(".bg-dark.navbar-dark");

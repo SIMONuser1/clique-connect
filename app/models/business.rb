@@ -19,7 +19,7 @@ class Business < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch do
+  algoliasearch per_environment: true do
     attribute :name, :industries, :customer_interests
     attributesForFaceting [:customer_interests]
     searchableAttributes ['name']

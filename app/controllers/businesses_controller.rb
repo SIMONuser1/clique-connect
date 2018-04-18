@@ -11,6 +11,7 @@ class BusinessesController < ApplicationController
   # GET /businesses/1
   # GET /businesses/1.json
   def show
+    redirect_to my_business_path if @current_user.business == @business
   end
 
   # GET /businesses/new
@@ -64,6 +65,10 @@ class BusinessesController < ApplicationController
       format.html { redirect_to businesses_url, notice: 'Business was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def my_business
+    @business = current_user.business
   end
 
   private

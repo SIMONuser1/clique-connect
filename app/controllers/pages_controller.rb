@@ -21,7 +21,7 @@ class PagesController < ApplicationController
     # @query = params[:filters][:query]
     @query = params[:query]
     @results = Business.search(@query, { facets: '*' })
-    # binding.pry
+
   end
 
   # def domain_regex(url)
