@@ -1,5 +1,9 @@
 require 'rubyXL' # Assuming rubygems is already required
 require 'faker'
+require 'json'
+require 'open-uri'
+
+user_url = 'https://randomuser.me/api/'
 
 def def_current_business(row)
   Business.where(name: row.cells[0].value).first
@@ -29,6 +33,8 @@ worksheet_bus.each do |row|
   des_p_types = row.cells[3].value.nil? ? [] : row.cells[3].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
   off_p_types = row.cells[4].value.nil? ? [] : row.cells[4].value.split("\n").map{ |p_type| Business::PARTNERSHIP_TYPES.invert[p_type] }
   bus_url = row.cells[9].nil? ? "" : row.cells[9].value
+  photo_url = row.cells[10].value.nil? ? "" : row.cells[10].value
+  location = row.cells[11].value.nil? ? "" : row.cells[11].value
 
   user = User.new()
 
@@ -41,30 +47,39 @@ worksheet_bus.each do |row|
     url: bus_url
   }
 
+  user_serialized = open(user_url).read
+  user_hash = JSON.parse(user_serialized)["results"][0]
+
   business = Business.create!(business_hash)
   unless bus_url.empty?
     domain = business.url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
   end
 
   email = if domain.nil?
-     Faker::Internet.email
+     user_hash["email"]
   else
-    "#{Faker::Name.first_name}@#{domain}"
+    "#{user_hash["name"]["first"]}@#{domain}"
   end
 
-  user_hash = {
+  user = {
+    first_name: user_hash["name"]["first"],
+    last_name: user_hash["name"]["last"],
     email: email,
-    password: 'password',
-    password_confirmation: 'password',
-    business_id: business.id
+    password: "password",
+    password_confirmation: "password",
+    business_id: business.id,
+    linkedin_url: 'https://www.linkedin.com/in/kate-baskin-943a15a1/',
+    location: location
   }
 
-  user = User.create!(user_hash)
-  business.add_domain
-  business.save!
+  user = User.create!(user)
+  user.remote_photo_url = user_hash["picture"]["large"]
+  user.save!
 
-  # current_business = Business.create!(business_hash)
-  # user.update!(business: current_business)
+  business.add_domain
+  p photo_url
+  business.remote_photo_url = photo_url
+  business.save!
 end
 
 

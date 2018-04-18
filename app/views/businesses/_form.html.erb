@@ -8,8 +8,6 @@
                         </li>
                         <li class="breadcrumb-item"><a href="pages-app.html">App Pages</a>
                         </li>
-
-
                         <li class="breadcrumb-item active" aria-current="page">Wizard Onboarding - Alternative</li>
                     </ol>
                 </div>
@@ -52,32 +50,35 @@
                         <!-- <form> -->
                             <div class="form-row form-group">
                                 <div class="col">
-                                    <%= label_tag(:name, "Company Name:") %>
+                                    <!-- <%= label_tag(:name, "Company Name:") %> -->
                                     <%= text_field_tag(:name, "Company Name", class: "form-control form-control-lg") %>
-                                    <%= label_tag(:photo, "Company Photo:") %>
-                                    <%= file_field_tag(:photo, class: "form-control form-control-lg custom-file") %>
-                                    <%= hidden_field_tag :photo_cache %>
-
-                                    <input class="form-control form-control-lg" type="text" id="company" placeholder="Company Name" />
                                 </div>
                             </div>
                             <div class="form-row form-group">
                                 <div class="col">
-                                    <input class="form-control form-control-lg" type="text" id="firstname" placeholder="First Name" />
-                                </div>
-                                <div class="col">
-                                    <input class="form-control form-control-lg" type="text" id="lastname" placeholder="Last Name" />
+<!--                                     <%= label_tag(:tagline, "Company Tagline:") %> -->
+                                    <%= text_field_tag(:tagline, "Company Tagline", class: "form-control form-control-lg") %>
                                 </div>
                             </div>
                             <div class="form-row form-group">
                                 <div class="col">
-                                    <input class="form-control form-control-lg" type="email" id="email" placeholder="Email Address" />
+                                  <!-- <%= label_tag(:url, "Company URL:") %> -->
+                                  <%= text_field_tag(:url, "Your Business Website URL", class: "form-control form-control-lg") %>
+                                </div>
+                                <div class="col">
+                                  <%= label_tag(:photo, "Company Logo:") %>
+                                  <%= cl_image_upload_tag(:photo, class: "image_ipload form-control form-control-lg custom-file") %>
+                                  <%= hidden_field_tag :photo_cache %>
                                 </div>
                             </div>
                             <div class="form-row form-group">
                                 <div class="col">
-                                    <input class="form-control form-control-lg" type="password" id="password" placeholder="Password" />
-                                    <small>Password must be at least 7 characters</small>
+                                    <%= select_tag(:employees, options_for_select(Business.employees.values), include_blank: "Number of employees", class: "form-control form-control-lg") %>
+                                </div>
+                            </div>
+                            <div class="form-row form-group">
+                                <div class="col">
+                                    <%= text_field_tag(:youtube_url, "Company youtube video url", class: "form-control form-control-lg") %>
                                 </div>
                             </div>
                         <!-- </form> -->
@@ -87,8 +88,9 @@
                         <div class="row align-items-center mb-5">
                             <div class="col-12 col-md-7">
                                 <h6 class="title-decorative">Step Two</h6>
-                                <h3 class="h1">Tell us about you</h3>
-                                <span class="lead">Add some detail to your profile to personalise it and let others know who you are</span>
+                                <h3 class="h1">Tell us about your Partnerships</h3>
+                                <span class="lead">We would like to know about you. Information shared on this page is not Public and will not be shared with other Users. This way, your partnerships will not be visible. </span>
+                                <small>Please note, your existing partnerships and compeititors will not be shown on your public profile. This is your confidential information.</small>
                             </div>
                             <!--end of col-->
                             <div class="col-12 col-md-4">
