@@ -51,7 +51,8 @@ class Suggestion < ApplicationRecord
 
     # Check if their customer interests align
     customer_interests_rating = (business.customer_interests & suggested_business.customer_interests).count
-    customer_interests_rating /= business.customer_interests.count.to_f
+    cust_interests_divisor = business.customer_interests.count.to_f
+    customer_interests_rating /= cust_interests_divisor unless cust_interests_divisor.zero?
 
     # Check if suggested business is a competitor to desired partners
     des_partner_competitor_rating = (business.partnerships.desired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
