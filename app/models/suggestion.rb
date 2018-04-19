@@ -88,6 +88,6 @@ class Suggestion < ApplicationRecord
     final_rating = (weighted_ratings.sum * 100 / weights.values.sum.to_f).to_i
 
     self.rating = final_rating + 45
-    Business.find_by_name('Tinder').suggestions.where(suggested_business: Business.find_by_name('Ford')).first.update!(rating: 87)
+
   end
 end
