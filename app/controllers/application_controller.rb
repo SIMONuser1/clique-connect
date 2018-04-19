@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def user_photo
     unless !current_user
-      @photo = current_user.photo
+      @photo = current_user.avatar
     end
   end
 
@@ -34,10 +34,10 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :title, :body, :photo])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :title, :body, :avatar])
 
     # For additional in app/views/devise/registrations/edit.html.erb
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :title, :body, :photo])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :title, :body, :avatar])
   end
 
 end

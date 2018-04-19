@@ -40,7 +40,7 @@
       <div class="container">
           <div class="row justify-content-between">
             <div class="col-12 col-md-8 col-lg-7">
-              <% if @business.youtube_url.nil? %>
+              <% if @business.youtube_url.nil? || @business.youtube_url.empty? %>
                 <p><strong><%= @business.name %>!</strong> You havn't given us a YouTube video URL!</p>
                 <p>It will appear here instead of our artwork. A Video is great for giving propsective customers a chance to see what your Business is about! </p>
                 <div class="video-cover rounded">
@@ -159,7 +159,7 @@
                         <% @business.users.each do |list| %>
                           <li>
                             <a class="media">
-                              <%= cl_image_tag list.photo, class: 'avatar avatar-sm mr-3' %>
+                              <%= cl_image_tag list.avatar, class: 'avatar avatar-sm mr-3' %>
                               <div class="media-body">
                                 <span class="h6 mb-0"><%= list.full_name %></span>
                                 <span class="text-muted"><%= list.location %></span>

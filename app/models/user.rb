@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :business, required: false
-  mount_uploader :photo, PhotoUploader
+  mount_uploader :avatar, AvatarUploader
 
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
