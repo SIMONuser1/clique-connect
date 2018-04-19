@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :suggestions, only: [:index, :update]
-  resources :businesses
+  resources :businesses, only: [:show, :new, :create, :edit, :update]
 
   devise_for :users, controllers: {sessions: "sessions", registrations: "registrations"}
 
