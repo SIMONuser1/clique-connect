@@ -1,5 +1,5 @@
-// 
-// 
+//
+//
 // avatar.scss
 //
 // A set of shortcut classes for <img> element to make them round and size them appropirately for a range of avatar and media uses
@@ -7,22 +7,22 @@
 .avatar{
   border-radius: 50%;
   width: $spacer*3;
-  height: $spacer*3;
+  // height: $spacer*3;
   &.avatar-xs{
     width: $spacer*1.5;
-    height: $spacer*1.5;
+    // height: $spacer*1.5;
   }
   &.avatar-sm{
     width: $spacer*2;
-    height: $spacer*2;
+    // height: $spacer*2;
   }
   &.avatar-lg{
     width: $spacer*5;
-    height: $spacer*5;
+    // height: $spacer*5;
   }
   &.avatar-xlg{
     width: $spacer*8;
-    height: $spacer*8;
+    // height: $spacer*8;
   }
   &.avatar-square{
     border-radius: $border-radius/2;

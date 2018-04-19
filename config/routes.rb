@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :suggestions, only: [:index, :update]
-  resources :businesses
+  resources :businesses, only: [:show, :new, :create, :edit, :update]
 
   devise_for :users, controllers: {sessions: "sessions", registrations: "registrations"}
 
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/welcome', to: 'pages#welcome'
   get '/assign_business', to: 'pages#assign_business'
   get '/search', to: 'pages#search'
+  get '/my_business', to: 'businesses#my_business'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

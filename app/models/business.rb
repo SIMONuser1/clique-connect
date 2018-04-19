@@ -20,7 +20,7 @@ class Business < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch do
+  algoliasearch per_environment: true do
     attribute :name, :industries, :customer_interests
     attributesForFaceting [:customer_interests]
     searchableAttributes ['name']
@@ -66,6 +66,9 @@ class Business < ApplicationRecord
   #   business.users
   #   #will be an array of Users
   # end
+  def remove_self_from_list(list)
+   list - [self]
+  end
 
   def mutual_clicks(business)
     click_counts(business).min

@@ -1,4 +1,4 @@
-<div class="main-container">
+
 	<nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -60,7 +60,9 @@
 								<tr class="bg-white">
 									<th scope="row">
 										<%= link_to r, class: "media align-items-center" do %>
-											<img alt="Image" src="assets/img/logo-snapchat.svg" class="avatar rounded avatar-sm" />
+                      <%= cl_image_tag r.photo, class: 'avatar rounded avatar-sm' %>
+                      <!-- <img alt="Image" src="assets/img/logo-snapchat.svg" class="avatar rounded avatar-sm" /> -->
+
 											<div class="media-body">
 												<span class="h6 mb-0"><%= r.name %></span>
 												<span class="text-muted"><%= r.business_domain %></span>
@@ -89,4 +91,3 @@
 			</div>
 		</div>
 	</section>
-</div>

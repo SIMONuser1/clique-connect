@@ -4,13 +4,18 @@ class BusinessesController < ApplicationController
 
   # GET /businesses
   # GET /businesses.json
-  def index
-    @businesses = Business.all
-  end
+  # def index
+  #   @businesses = Business.all
+  # end
 
   # GET /businesses/1
   # GET /businesses/1.json
   def show
+    redirect_to my_business_path if @current_user.business == @business
+    raise
+    click = Click.where(clicker: current_user, clicked: @business).first
+    click.count += 1
+    click.save
   end
 
   # GET /businesses/new
@@ -68,6 +73,10 @@ class BusinessesController < ApplicationController
       format.html { redirect_to businesses_url, notice: 'Business was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def my_business
+    @business = current_user.business
   end
 
   private
