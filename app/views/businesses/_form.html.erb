@@ -2,7 +2,7 @@
   <%= cloudinary_js_config %>
   <section>
     <div class="container">
-      <%= form_tag(businesses_path, method: "post", id: 'new-business-form', class: 'row justify-content-around wizard') do %>
+      <%= form_tag(businesses_path, method: "post", multipart: true, id: 'new-business-form', class: 'row justify-content-around wizard') do %>
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <ul class="col-12 col-md-auto nav nav-tabs flex-md-column justify-content-between justify-content-md-start">
         <li><a href="#first" class="step-circle step-circle-sm">1</a>
@@ -50,16 +50,9 @@
                 <%= text_field_tag(:url, nil, placeholder: "Your Business Website URL", class: "form-control form-control-lg") %>
               </div>
               <div class="col">
-                <%= simple_form_for(business) do |f| %>
-                  <!-- [...] -->
-                  <%= f.input :photo, input_html: {class: 'custom-file'} %>
-                  <%= f.input :photo_cache, as: :hidden %>
-                  <!-- [...] -->
-                 <% end %>
-
-                 <!-- <%= label_tag(:photo, "Company Logo:") %> -->
-                 <!-- <%= cl_upload_tag(:photo) %> -->
-                 <!-- <%= hidden_field_tag :photo_cache %> -->
+                 <%= label_tag(:photo, "Company Logo:") %>
+                 <%= cl_upload_tag(:photo) %>
+                 <%= hidden_field_tag :photo_cache %>
               </div>
             </div>
             <div class="form-row form-group">
@@ -200,3 +193,10 @@
     </section>
     <!--end of section-->
   </div>
+  <script type="text/javascript">
+    $(function() {
+      if($.fn.cloudinary_fileupload !== undefined) {
+        $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+      }
+    });
+  </script>
