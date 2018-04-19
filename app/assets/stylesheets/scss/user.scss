@@ -4,7 +4,18 @@
 //
 // Place your own custom CSS or SCSS rules below this line, these rules will override any Bootstrap and theme variables.
 .alert {
-  background-color: #4582EC;
+  background: var(--danger);
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: 0px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+span.help-block {
+  color: var(--danger);
 }
 
 .notice {
