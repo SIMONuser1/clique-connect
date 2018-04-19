@@ -29,7 +29,7 @@
     <%= favicon_link_tag %>
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://s3.amazonaws.com/icomoon.io/114779/Socicon/style.css?9ukd8d">
-    <link rel="stylesheet" href="http://cdn.zap.be/css/entypo.css">
+    <!-- <link rel="stylesheet" href="http://cdn.zap.be/css/entypo.css"> -->
 
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
@@ -40,7 +40,6 @@
       <% else %>
         <%= render 'shared/navbar-landing' %>
       <% end %>
-
       <% if !!notice %>
         <p class="notice"><%= notice %></p>
       <% elsif !!alert %>

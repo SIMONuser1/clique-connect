@@ -64,10 +64,11 @@ class Business < ApplicationRecord
     end
   end
 
-  # def users_in_business_of(business)
-  #   business.users
-  #   #will be an array of Users
-  # end
+  def who_matched_with_me
+    Suggestion.where(suggested_business_id: id).first(10)
+    #will be an array of Users
+  end
+
   def remove_self_from_list(list)
    list - [self]
   end
