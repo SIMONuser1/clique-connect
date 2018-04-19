@@ -99,7 +99,7 @@ class BusinessesController < ApplicationController
     end
 
     def create_params
-      params.permit(:name, :tagline, :url, :photo, :photo_cache, :industries, :employees, desired_partnership_types: [], offered_partnership_types: [], :youtube_url)
+      params.permit(:name, :tagline, :url, :photo, :photo_cache, :industries, :youtube_url, :employees, desired_partnership_types: [], offered_partnership_types: [])
     end
 
     def update_business(current_business, base_hash)
