@@ -153,8 +153,10 @@ Business.all.each do |business|
 end
 
 puts "Creating Demo Cases"
-Business.last.suggestions.first.rating = 87
-Business.last.clicks.first.count = 10
-Business.first.clicks.last.count = 10
+tinder = Business.find_by_name('Tinder')
+ford = Business.find_by_name('Ford')
+
+tinder.clicks.find_by_clicked_id(ford.id).update!(count: 10)
+ford.clicks.find_by_clicked_id(tinder.id).update!(count: 10)
 
 puts "Done!"
