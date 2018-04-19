@@ -25,8 +25,10 @@ class Suggestion < ApplicationRecord
     acq_partner_competitor_rating = 0
 
     # Calculating against desired business partnership type match
-    des_p_types_rating += (suggested_business.offered_partnership_types & business.desired_partnership_types).count
-    des_p_types_rating /= business.desired_partnership_types.count.to_f
+    unless suggested_business.offered_partnership_types.nil? || business.desired_partnership_types.nil?
+      des_p_types_rating += (suggested_business.offered_partnership_types & business.desired_partnership_types).count
+      des_p_types_rating /= business.desired_partnership_types.count.to_f
+    end
 
     # Check if they are on each others partnerships desired list
     if (
@@ -50,19 +52,25 @@ class Suggestion < ApplicationRecord
     end
 
     # Check if their customer interests align
-    customer_interests_rating = (business.customer_interests & suggested_business.customer_interests).count
-    cust_interests_divisor = business.customer_interests.count.to_f
-    customer_interests_rating /= cust_interests_divisor unless cust_interests_divisor.zero?
+    unless business.customer_interests.nil? || suggested_business.customer_interests.nil?
+      customer_interests_rating = (business.customer_interests & suggested_business.customer_interests).count
+      cust_interests_divisor = business.customer_interests.count.to_f
+      customer_interests_rating /= cust_interests_divisor unless cust_interests_divisor.zero?
+    end
 
     # Check if suggested business is a competitor to desired partners
-    des_partner_competitor_rating = (business.partnerships.desired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
-    des_partner_divisor = business.partnerships.desired.count.to_f
-    des_partner_competitor_rating /= des_partner_divisor unless des_partner_divisor.zero?
+    unless business.partnerships.desired.map(&:partner_id).nil? || suggested_business.competitors.map(&:id).nil?
+      des_partner_competitor_rating = (business.partnerships.desired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
+      des_partner_divisor = business.partnerships.desired.count.to_f
+      des_partner_competitor_rating /= des_partner_divisor unless des_partner_divisor.zero?
+    end
 
     # Check if suggested business is a competitor to acquired partners
-    acq_partner_competitor_rating = (business.partnerships.acquired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
-    acq_partner_divisor = business.partnerships.acquired.count.to_f
-    acq_partner_competitor_rating /= acq_partner_divisor unless acq_partner_divisor.zero?
+    unless business.partnerships.acquired.map(&:partner_id).nil? || suggested_business.competitors.map(&:id).nil?
+      acq_partner_competitor_rating = (business.partnerships.acquired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
+      acq_partner_divisor = business.partnerships.acquired.count.to_f
+      acq_partner_competitor_rating /= acq_partner_divisor unless acq_partner_divisor.zero?
+    end
 
     # insert variable weighting multipliers for each rating based on user preferences
     # Use self#weights

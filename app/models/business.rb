@@ -140,8 +140,8 @@ class Business < ApplicationRecord
   private
 
   def click_counts(business)
-    you_clicked_them = clicks.where(clicked_id: business.id).count
-    they_clicked_you = business.clicks.where(clicked_id: id).count
+    you_clicked_them = clicks.where(clicked_id: business.id).first.count
+    they_clicked_you = business.clicks.where(clicked_id: id).first.count
 
     [you_clicked_them, they_clicked_you]
   end
