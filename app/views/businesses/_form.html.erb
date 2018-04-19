@@ -36,23 +36,30 @@
             <div class="form-row form-group">
               <div class="col">
                 <!-- <%= label_tag(:name, "Company Name:") %> -->
-                <%= text_field_tag(:name, "Company Name", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:name, nil, placeholder: "Company Name", class: "form-control form-control-lg") %>
               </div>
             </div>
             <div class="form-row form-group">
               <div class="col">
-                <%= text_field_tag(:tagline, "Company Tagline", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:tagline, nil, placeholder: "Company Tagline", class: "form-control form-control-lg") %>
               </div>
             </div>
             <div class="form-row form-group">
               <div class="col">
                 <!-- <%= label_tag(:url, "Company URL:") %> -->
-                <%= text_field_tag(:url, "Your Business Website URL", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:url, nil, placeholder: "Your Business Website URL", class: "form-control form-control-lg") %>
               </div>
               <div class="col">
-                <%= label_tag(:photo, "Company Logo:") %>
-                <%= cl_upload_tag(:photo) %>
-                <%= hidden_field_tag :photo_cache %>
+                <%= simple_form_for(business) do |f| %>
+                  <!-- [...] -->
+                  <%= f.input :photo, input_html: {class: 'custom-file'} %>
+                  <%= f.input :photo_cache, as: :hidden %>
+                  <!-- [...] -->
+                 <% end %>
+
+                 <!-- <%= label_tag(:photo, "Company Logo:") %> -->
+                 <!-- <%= cl_upload_tag(:photo) %> -->
+                 <!-- <%= hidden_field_tag :photo_cache %> -->
               </div>
             </div>
             <div class="form-row form-group">
@@ -62,7 +69,7 @@
             </div>
             <div class="form-row form-group">
               <div class="col">
-                <%= text_field_tag(:youtube_url, "Company youtube video url", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:youtube_url, nil, placeholder: "Company youtube video url", class: "form-control form-control-lg") %>
               </div>
             </div>
             <!-- </form> -->
@@ -85,19 +92,19 @@
             <!--end of row-->
             <div class="form-row form-group">
               <div class="col">
-                <%= text_field_tag(:acq_partners, "Who are your Existing Partnerships with?", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:acq_partners, nil, placeholder: "Who are your Existing Partnerships with?", class: "form-control form-control-lg") %>
                 <small>Please separate with commas</small>
               </div>
             </div>
             <div class="form-row form-group">
               <div class="col">
-                <%= text_field_tag(:des_partners, "Who would you like to partner with?", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:des_partners, nil, placeholder: "Who would you like to partner with?", class: "form-control form-control-lg") %>
                 <small>Please separate with commas</small>
               </div>
             </div>
             <div class="form-row form-group">
               <div class="col">
-                <%= text_field_tag(:other_competitors, "Who are your Competitors?", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:other_competitors, nil, placeholder: "Who are your Competitors?", class: "form-control form-control-lg") %>
                 <small>Please separate with commas</small>
               </div>
             </div>
@@ -152,7 +159,7 @@
             <div class="form-row form-group">
               <div class="col">
                 <%= label_tag :industries, "What are your company industries?" %>
-                <%= text_field_tag(:industries, "e-Commerce, Retail, Fashion ...", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:industries, nil, placeholder: "e-Commerce, Retail, Fashion ...", class: "form-control form-control-lg") %>
                 <small>Please separate with commas</small>
               </div>
             </div>
@@ -160,7 +167,7 @@
             <div class="form-row form-group">
               <div class="col">
                 <%= label_tag :customer_interests, "What are your customers interested in?" %>
-                <%= text_field_tag(:customer_interests, "Beauty, Cosmetics, Fashion ...", class: "form-control form-control-lg") %>
+                <%= text_field_tag(:customer_interests, nil, placeholder: "Beauty, Cosmetics, Fashion ...", class: "form-control form-control-lg") %>
                 <small>Please separate with commas</small>
               </div>
             </div>

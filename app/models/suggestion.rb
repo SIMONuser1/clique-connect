@@ -52,24 +52,21 @@ class Suggestion < ApplicationRecord
     end
 
     # Check if their customer interests align
-    unless business.customer_interests.nil? || suggested_business.customer_interests.nil?
+    unless business.customer_interests.empty? || suggested_business.customer_interests.empty?
       customer_interests_rating = (business.customer_interests & suggested_business.customer_interests).count
-      cust_interests_divisor = business.customer_interests.count.to_f
-      customer_interests_rating /= cust_interests_divisor unless cust_interests_divisor.zero?
+      customer_interests_rating /= business.customer_interests.count.to_f
     end
 
     # Check if suggested business is a competitor to desired partners
-    unless business.partnerships.desired.map(&:partner_id).nil? || suggested_business.competitors.map(&:id).nil?
+    unless business.partnerships.desired.map(&:partner_id).empty? || suggested_business.competitors.map(&:id).empty?
       des_partner_competitor_rating = (business.partnerships.desired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
-      des_partner_divisor = business.partnerships.desired.count.to_f
-      des_partner_competitor_rating /= des_partner_divisor unless des_partner_divisor.zero?
+      des_partner_competitor_rating /= business.partnerships.desired.count.to_f
     end
 
     # Check if suggested business is a competitor to acquired partners
-    unless business.partnerships.acquired.map(&:partner_id).nil? || suggested_business.competitors.map(&:id).nil?
+    unless business.partnerships.acquired.map(&:partner_id).empty? || suggested_business.competitors.map(&:id).empty?
       acq_partner_competitor_rating = (business.partnerships.acquired.map(&:partner_id) & suggested_business.competitors.map(&:id)).count
-      acq_partner_divisor = business.partnerships.acquired.count.to_f
-      acq_partner_competitor_rating /= acq_partner_divisor unless acq_partner_divisor.zero?
+      acq_partner_competitor_rating /= business.partnerships.acquired.count.to_f
     end
 
     # insert variable weighting multipliers for each rating based on user preferences
