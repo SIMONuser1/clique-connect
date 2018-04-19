@@ -18,11 +18,5 @@ import './mrare/sticky';
 import './mrare/util';
 import './mrare/video';
 import './mrare/wizard';
-import './mrare/flickity.pkgd.min.js';
-import './mrare/jquery.smartWizard.min.js';
-import './mrare/popper.min.js';
-import './mrare/scrollMonitor.js';
-import './mrare/smooth-scroll.polyfills.js';
-import './mrare/theme.js';
-import './mrare/zoom.min.js';
 import './algolia';
+
