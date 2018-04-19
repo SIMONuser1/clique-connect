@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
 #     raise
 #     welcome_path
 #   end
+  def default_url_options
+    { host: ENV["HOST"] || "localhost:3000" }
+  end
 
   def user_needs_business
     unless current_user.business
