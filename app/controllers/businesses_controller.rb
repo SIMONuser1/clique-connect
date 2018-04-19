@@ -12,8 +12,7 @@ class BusinessesController < ApplicationController
   # GET /businesses/1.json
   def show
     redirect_to my_business_path if @current_user.business == @business
-    raise
-    click = Click.where(clicker: current_user, clicked: @business).first
+    click = Click.where(clicker: current_user.business, clicked: @business).first
     click.count += 1
     click.save
   end

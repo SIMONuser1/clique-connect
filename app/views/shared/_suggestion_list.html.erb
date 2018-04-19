@@ -7,10 +7,9 @@
       <div class="media-body">
         <div class="d-flex justify-content-between mb-2">
           <div>
-
-              <%= link_to business_path(suggestion.suggested_business) do %>
-                <h4><%= suggestion.suggested_business.name %></h4>
-              <% end %>
+            <%= link_to business_path(suggestion.suggested_business) do %>
+              <h4><%= suggestion.suggested_business.name %></h4>
+            <% end %>
             <span><%= suggestion.suggested_business.description.to_s[0...80] %>...</span>
           </div>
           <div class="dropdown">
