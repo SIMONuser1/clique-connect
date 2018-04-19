@@ -152,4 +152,9 @@ Business.all.each do |business|
   business.update_suggestions!
 end
 
+puts "Creating Demo Cases"
+Business.last.suggestions.first.rating = 87
+Business.last.clicks.first.count = 10
+Business.first.clicks.last.count = 10
+
 puts "Done!"
