@@ -14,6 +14,8 @@ class Business < ApplicationRecord
   has_many :business_customer_interests, dependent: :destroy
   has_many :customer_interests, through: :business_customer_interests
 
+  alias_attribute :file, :photo
+
   mount_uploader :photo, PhotoUploader
 
   after_create :add_description

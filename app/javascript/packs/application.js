@@ -19,9 +19,3 @@ import './mrare/util';
 import './mrare/video';
 import './mrare/wizard';
 import './algolia';
-
-$(function() {
-  if($.fn.cloudinary_fileupload !== undefined) {
-    $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
-  }
-});

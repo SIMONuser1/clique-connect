@@ -87,6 +87,6 @@ class Suggestion < ApplicationRecord
 
     final_rating = (weighted_ratings.sum * 100 / weights.values.sum.to_f).to_i
 
-    self.rating = final_rating
+    self.rating = final_rating + 45
   end
 end
