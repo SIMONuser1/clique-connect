@@ -86,7 +86,7 @@
                   <label for="first-name">First Name:
                     <span class="text-red">*</span>
                   </label>
-                  <%= f.input :first_name, autofocus: true, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'firstName', id: 'first-name' } %>
+                  <%= f.input :first_name, autofocus: true, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', id: 'first-name' } %>
                   <!-- <input class="" type="text" name="firstName" value="Alannah" id="first-name" /> -->
                 </div>
               </div>
@@ -94,7 +94,7 @@
               <div class="col-6">
                 <div class="form-group">
                   <label for="last-name">Last Name:</label>
-                  <%= f.input :last_name, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'lastName', id: 'last-name' } %>
+                  <%= f.input :last_name, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', id: 'last-name' } %>
                   <!-- <input class="form-control form-control-lg" type="text" name="lastName" value="Cunningham" id="last-name" /> -->
                 </div>
               </div>
@@ -104,7 +104,7 @@
                   <label for="emailaddress">Email Address:
                     <span class="text-red">*</span>
                   </label>
-                  <%= f.input :email, label: false, input_html: { class: 'form-control form-control-lg', type: 'email', name: 'emailAddress', id: 'emailaddress' } %>
+                  <%= f.input :email, label: false, input_html: { class: 'form-control form-control-lg', type: 'email', id: 'emailaddress' } %>
                   <!-- <input class="form-control form-control-lg" type="email" name="emailAddress" id="emailaddress"> -->
                   <!-- <small>Used to log in to your account</small> -->
                 </div>
@@ -115,7 +115,7 @@
                   <label for="linkedin-url">LinkedIn Url:
                     <!-- <span class="text-red">*</span> -->
                   </label>
-                  <%= f.input :linkedin_url, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'linkedinUrl', id: 'linkedin-url' } %>
+                  <%= f.input :linkedin_url, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', id: 'linkedin-url' } %>
                   <!-- <input class="form-control form-control-lg" type="text" name="userName" id="username" /> -->
                   <!-- <small>This will be displayed on your public profile</small> -->
                 </div>
@@ -126,7 +126,7 @@
                   <label for="location">Location:
                     <!-- <span class="text-red">*</span> -->
                   </label>
-                  <%= f.input :location, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'location', id: 'location' } %>
+                  <%= f.input :location, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', id: 'location' } %>
                 </div>
               </div>
 
@@ -136,7 +136,7 @@
                     <!-- <span class="text-red">*</span> -->
                   </label>
                   <%= f.input :current_password, label: false, placeholder: "We need your current password to confirm your changes", required: false, input_html: { class: 'form-control form-control-lg', type: 'password' } %>
-                  <% f.input :location , name: 'location', id: 'location' %>
+                  <% f.input :location , id: 'location' %>
                 </div>
               </div>
 
@@ -156,7 +156,7 @@
                   <label for="password">New Password:
                     <!-- <span class="text-red">*</span> -->
                   </label>
-                  <%= f.input :password, autocomplete: "off", label: false, placeholder: "Leave it blank if you don't want to change it", required: false, input_html: { class: 'form-control form-control-lg', type: 'password', name: 'password', id: 'password' } %>
+                  <%= f.input :password, autocomplete: "off", label: false, placeholder: "Leave it blank if you don't want to change it", required: false, input_html: { class: 'form-control form-control-lg', type: 'password', id: 'password' } %>
 
                   <!-- <input class="form-control form-control-lg" type="email" name="emailAddress" id="emailaddress"> -->
                   <!-- <small>Used to log in to your account</small> -->
@@ -168,7 +168,7 @@
                   <label for="password">Password Confirmation:
                     <!-- <span class="text-red">*</span> -->
                   </label>
-                  <%= f.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'form-control form-control-lg', type: 'password', name: 'password', id: 'password' } %>
+                  <%= f.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'form-control form-control-lg', type: 'password', id: 'password' } %>
 
                   <!-- <input class="form-control form-control-lg" type="email" name="emailAddress" id="emailaddress"> -->
                   <!-- <small>Used to log in to your account</small> -->
