@@ -8,24 +8,23 @@
 <!--        <div class="col-auto text-right">
         <a href="#" class="btn btn-success">Upgrade to Pro</a>
       </div> -->
-      <!--end of col-->
     </div>
-    <!--end of row-->
   </div>
-  <!--end of container-->
 </section>
-<!--end of section-->
+
+<!-- Tabs Menu -->
 <section class="flush-with-above space-0">
   <div class="bg-white">
     <div class="container">
       <div class="row">
         <div class="col">
+
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">User</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="billing-tab" data-toggle="tab" href="#billing" role="tab" aria-controls="billing" aria-selected="false">Business</a>
+              <a class="nav-link" id="billing-tab" data-toggle="tab" href="#business" role="tab" aria-controls="billing" aria-selected="false">Business</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="security-tab" data-toggle="tab" href="#billing" role="tab" aria-controls="billing" aria-selected="false">Billing</a>
@@ -34,15 +33,14 @@
               <a class="nav-link" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">Notifications</a>
             </li>
           </ul>
+
         </div>
-        <!--end of col-->
       </div>
-      <!--end of row-->
     </div>
-    <!--end of container-->
   </div>
 </section>
 
+<!-- Account Settings -->
 <section class="flush-with-above height-80 d-block">
   <div class="tab-content">
     <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
@@ -78,119 +76,188 @@
         <div class="row">
           <div class="col-12 col-md-8 order-md-1">
             <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "row" }) do |f| %>
-              <%= f.error_notification %>
+              <div class="col-12">
+                <%= f.error_notification %>
+              </div>
 
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="first-name">First Name:
-                      <span class="text-red">*</span>
-                    </label>
-                    <%= f.input :first_name, autofocus: true, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'firstName', id: 'first-name' } %>
-                    <!-- <input class="" type="text" name="firstName" value="Alannah" id="first-name" /> -->
-                  </div>
-                </div>
 
-                <div class="col-6">
-                  <div class="form-group">
-                    <label for="last-name">Last Name:</label>
-                    <%= f.input :last_name, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'lastName', id: 'last-name' } %>
-                    <!-- <input class="form-control form-control-lg" type="text" name="lastName" value="Cunningham" id="last-name" /> -->
-                  </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="first-name">First Name:
+                    <span class="text-red">*</span>
+                  </label>
+                  <%= f.input :first_name, autofocus: true, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'firstName', id: 'first-name' } %>
+                  <!-- <input class="" type="text" name="firstName" value="Alannah" id="first-name" /> -->
                 </div>
+              </div>
 
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="username">LinkedIn Url:
-                      <!-- <span class="text-red">*</span> -->
-                    </label>
-                    <%= f.input :linkedin_url, label: false, input_html: { class: 'form-control form-control-lg', type: 'text' } %>
-                    <!-- <input class="form-control form-control-lg" type="text" name="userName" id="username" /> -->
-                    <small>This will be displayed on your public profile</small>
-                  </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="last-name">Last Name:</label>
+                  <%= f.input :last_name, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'lastName', id: 'last-name' } %>
+                  <!-- <input class="form-control form-control-lg" type="text" name="lastName" value="Cunningham" id="last-name" /> -->
                 </div>
+              </div>
 
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="emailaddress">Email Address:
-                      <span class="text-red">*</span>
-                    </label>
-                    <%= f.input :email, label: false, input_html: { class: 'form-control form-control-lg', type: 'email', name: 'emailAddress', id: 'emailaddress' } %>
-                    <!-- <input class="form-control form-control-lg" type="email" name="emailAddress" id="emailaddress"> -->
-                    <small>Used to log in to your account</small>
-                  </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="emailaddress">Email Address:
+                    <span class="text-red">*</span>
+                  </label>
+                  <%= f.input :email, label: false, input_html: { class: 'form-control form-control-lg', type: 'email', name: 'emailAddress', id: 'emailaddress' } %>
+                  <!-- <input class="form-control form-control-lg" type="email" name="emailAddress" id="emailaddress"> -->
+                  <!-- <small>Used to log in to your account</small> -->
                 </div>
+              </div>
 
-                <div class="col-12">
-                  <div class="form-group">
-                    <button class="btn btn-secondary" type="submit" disabled>Save changes</button>
-                  </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="linkedin-url">LinkedIn Url:
+                    <!-- <span class="text-red">*</span> -->
+                  </label>
+                  <%= f.input :linkedin_url, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'linkedinUrl', id: 'linkedin-url' } %>
+                  <!-- <input class="form-control form-control-lg" type="text" name="userName" id="username" /> -->
+                  <!-- <small>This will be displayed on your public profile</small> -->
                 </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="location">Location:
+                    <!-- <span class="text-red">*</span> -->
+                  </label>
+                  <%= f.input :location, label: false, input_html: { class: 'form-control form-control-lg', type: 'text', name: 'location', id: 'location' } %>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="location">Current Password:
+                    <!-- <span class="text-red">*</span> -->
+                  </label>
+                  <%= f.input :current_password, label: false, placeholder: "We need your current password to confirm your changes", required: false, input_html: { class: 'form-control form-control-lg', type: 'password' } %>
+                  <% f.input :location , name: 'location', id: 'location' %>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <%= f.button :submit, "Update Details", class: 'btn btn-primary' %>
+                  <!-- <button class="btn btn-primary" type="submit" disabled>Save changes</button> -->
+                </div>
+              </div>
+
+              <div class="col-12">
+                <hr>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="password">New Password:
+                    <!-- <span class="text-red">*</span> -->
+                  </label>
+                  <%= f.input :password, autocomplete: "off", label: false, placeholder: "Leave it blank if you don't want to change it", required: false, input_html: { class: 'form-control form-control-lg', type: 'password', name: 'password', id: 'password' } %>
+
+                  <!-- <input class="form-control form-control-lg" type="email" name="emailAddress" id="emailaddress"> -->
+                  <!-- <small>Used to log in to your account</small> -->
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="password">Password Confirmation:
+                    <!-- <span class="text-red">*</span> -->
+                  </label>
+                  <%= f.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'form-control form-control-lg', type: 'password', name: 'password', id: 'password' } %>
+
+                  <!-- <input class="form-control form-control-lg" type="email" name="emailAddress" id="emailaddress"> -->
+                  <!-- <small>Used to log in to your account</small> -->
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <%= f.button :submit, "Update Password", class: 'btn btn-primary' %>
+                  <!-- <button class="btn btn-primary" type="submit" disabled>Save changes</button> -->
+                </div>
+              </div>
+
+              <div class="col-12">
+                <hr>
+              </div>
+
+              <div class="col-12">
+                <%= link_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %>
+              </div>
+
             <% end %>
           </div>
-          <!--end of col-->
         </div>
-        <!--end of row-->
-        <hr>
+
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="billing" role="tabpanel" arialabelledby="billing-tab">
+      <div class="container">
         <div class="row mb-4">
           <div class="col">
-            <h5>Profile Information</h5>
+            <h5>Payment Methods</h5>
           </div>
           <!--end of col-->
         </div>
         <!--end of row-->
         <div class="row">
-          <!--end of col-->
-          <div class="col-12 col-md-8 order-md-1">
-            <form class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label for="city">City:</label>
-                  <input class="form-control form-control-lg" type="text" name="profileCity" value="Melbourne" id="city" />
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label for="country">Country:</label>
-                  <input class="form-control form-control-lg" type="text" name="profileCountry" value="Australia" id="country" />
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <label for="website">Website:</label>
-                  <input class="form-control form-control-lg" type="text" name="profileWebsite" id="website" />
-                  <small>This will be displayed on your public profile</small>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <label for="twitter">Twitter Handle:</label>
-                  <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">@</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="twitterUsername" name="profileTwitter" id="twitter">
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <label for="about-me">About me:</label>
-                  <textarea class="form-control form-control-lg" name="profileBio" rows="4" id="about-me"></textarea>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <div class="custom-control custom-checkbox custom-checkbox-switch">
-                    <input type="checkbox" class="custom-control-input" name="profilePublic" id="public" />
-                    <label class="custom-control-label" for="public">Make my profile public</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <button class="btn btn-secondary" type="submit" disabled>Save changes</button>
-                </div>
-              </div>
+          <div class="col-12">
+            <form>
+              <table class="table align-items-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Card Type</th>
+                    <th scope="col">Card Number</th>
+                    <th scope="col">Default Payment Method</th>
+                    <th scope="col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      <img alt="Image" src="assets/img/logo-payment-visa.svg" class="avatar avatar-sm" />
+                    </th>
+                    <td>
+                      <span class="d-block">&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 8372</span>
+                      <small class="text-muted">Exp: 06/22</small>
+                    </td>
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input id="radio1" name="payment-default" type="radio" class="custom-control-input" checked />
+                        <label class="custom-control-label" for="radio1"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="icon-squared-cross"></i> Remove card</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <img alt="Image" src="assets/img/logo-payment-amex.svg" class="avatar avatar-sm avatar-square" />
+                    </th>
+                    <td>
+                      <span class="d-block">&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 1225</span>
+                      <small class="text-muted">Exp: 07/21</small>
+                    </td>
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input id="radio2" name="payment-default" type="radio" class="custom-control-input">
+                        <label class="custom-control-label" for="radio2"></label>
+                      </div>
+                    </td>
+                    <td>
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="icon-squared-cross"></i> Remove card</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-success">Add new card</button>
             </form>
           </div>
           <!--end of col-->
@@ -200,6 +267,7 @@
       <!--end of container-->
     </div>
     <!--end of tab pane-->
+
     <div class="tab-pane fade" id="billing" role="tabpanel" arialabelledby="billing-tab">
       <div class="container">
         <div class="row mb-4">
@@ -388,7 +456,6 @@
 
     <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
     <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
   </div>
 
   <div class="form-actions">
@@ -398,7 +465,7 @@
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Unhappy? </p>
 
 <%= link_to "Back", :back %>
 
