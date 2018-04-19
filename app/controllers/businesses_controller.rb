@@ -31,6 +31,7 @@ class BusinessesController < ApplicationController
     # raise
     @business = Business.new(create_hash)
     @business.users << current_user
+    @business.add_domain
     # raise
     respond_to do |format|
       if @business.save
@@ -89,7 +90,7 @@ class BusinessesController < ApplicationController
     end
 
     def create_params
-      params.permit(:name, :tagline, :url, :photo, :photo_cache, :industries, :employees, desired_partnership_types: [], offered_partnership_types: [])
+      params.permit(:name, :tagline, :url, :photo, :photo_cache, :industries, :employees, desired_partnership_types: [], offered_partnership_types: [], :youtube_url)
     end
 
     def update_business(current_business, base_hash)
@@ -100,8 +101,8 @@ class BusinessesController < ApplicationController
       acquired_partnerships = base_hash["acq_partners"].split(', ')
 
       acquired_partnerships.each do |acq|
-        if Business.where("name LIKE ?", "#{acq}".capitalize).first
-          current_business.partnerships.acquired.create!(partner: Business.where("name LIKE ?", "#{acq}".capitalize).first)
+        if Business.where("lower(name) LIKE ?", "#{acq}".downcase).first
+          current_business.partnerships.acquired.create!(partner: Business.where("lower(name) LIKE ?", "#{acq}".downcase).first)
         else
           current_business.other_partners << acq
           current_business.save!
@@ -112,8 +113,8 @@ class BusinessesController < ApplicationController
       desired_partnerships = base_hash["des_partners"].split(', ')
 
       desired_partnerships.each do |des|
-        if Business.where("name LIKE ?", "#{des}".capitalize).first
-          current_business.partnerships.desired.create!(partner: Business.where("name LIKE ?", "#{des}".capitalize).first)
+        if Business.where("lower(name) LIKE ?", "#{des}".downcase).first
+          current_business.partnerships.desired.create!(partner: Business.where("lower(name) LIKE ?", "#{des}".downcase).first)
         else
           current_business.other_partners << des
           current_business.save!
@@ -124,8 +125,8 @@ class BusinessesController < ApplicationController
       competitors = base_hash["other_competitors"].split(', ')
 
       competitors.each do |competitor|
-        if Business.where("name LIKE ?", "#{competitor}".capitalize).first
-          current_business.competitions.create!(competitor: Business.where("name LIKE ?", "#{competitor}".capitalize).first)
+        if Business.where("lower(name) LIKE ?", "#{competitor}".downcase).first
+          current_business.competitions.create!(competitor: Business.where("lower(name) LIKE ?", "#{competitor}".downcase).first)
         else
           current_business.other_competitors << competitor
         end
