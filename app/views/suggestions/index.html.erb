@@ -1,3 +1,19 @@
+<section class="bg-dark space-sm">
+  <div class="main-carousel" data-flickity='{ "cellAlign": "center", "contain": true, "prevNextButtons": false, "pageDots":false, "wrapAround":true, "autoPlay":5000, "imagesLoaded":true }'>
+
+  <%  @suggestions.first(10).each do |suggestion| %>
+
+  <div class="carousel-cell col-9 col-md-8 col-lg-5 text-center">
+      <a href="#" class="d-block mb-3">
+        <%= cl_image_tag suggestion.suggested_business.photo, width: 500, height: 220, crop: "scale", class: 'img-fluid rounded' %>
+      </a>
+        <span class="h6"><%= suggestion.suggested_business.description.to_s[0...40] %>...</span>
+  </div>
+
+  <% end %>
+  </div>
+</section>
+
     <section>
         <div class="container">
             <div class="row">
