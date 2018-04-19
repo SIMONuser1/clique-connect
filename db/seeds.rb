@@ -58,11 +58,11 @@ worksheet_bus.each do |row|
   email = if domain.nil?
      user_hash["email"]
   else
-    "#{user_hash["name"]["first"]}@#{domain}"
+    "#{Faker::Name.first_name}@#{domain}"
   end
 
   user = {
-    first_name: user_hash["name"]["first"],
+    first_name: Faker::Name.first_name,
     last_name: user_hash["name"]["last"],
     email: email,
     password: "password",
@@ -73,11 +73,11 @@ worksheet_bus.each do |row|
   }
 
   user = User.create!(user)
-  user.remote_photo_url = user_hash["picture"]["large"]
+  user.remote_avatar_url = user_hash["picture"]["large"]
   user.save!
 
   business.add_domain
-  p photo_url
+  # p photo_url
   business.remote_photo_url = photo_url
   business.save!
 end

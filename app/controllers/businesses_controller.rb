@@ -30,17 +30,21 @@ class BusinessesController < ApplicationController
   # POST /businesses
   # POST /businesses.json
   def create
-    @business = Business.new(business_params)
-    @business.user = current_user
-    raise
+    create_hash = create_params
+    create_hash["industries"] = create_hash["industries"].split(', ').map(&:capitalize)
+    create_hash["employees"] = Business.employees.invert[create_hash["employees"]]
+    # raise
+    @business = Business.new(create_hash)
+    @business.users << current_user
+    @business.add_domain
+    # raise
     respond_to do |format|
       if @business.save
-        current_user.update!(business: @business)
-        raise
+        update_business(@business, update_params)
+        # raise
         format.html { redirect_to suggestions_path, notice: 'Business was successfully created.' }
         format.json { render :show, status: :created, location: @business }
       else
-        raise
         format.html { render :new }
         format.json { render json: @business.errors, status: :unprocessable_entity }
       end
@@ -82,8 +86,73 @@ class BusinessesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def business_params
+    def edit_business_params
       params.require(:business).permit(:name, :industries, :employees, :other_partners, :other_competitors, :desired_partnership_types, :offered_partnership_types, :url, :description, :title, :body, :photo)
     end
 
+    def business_params
+      params.permit(:name, :tagline, :url, :photo, :photo_cache, :industries, :employees, :acq_partners, :des_partners, :other_partners, :other_competitors, :desired_partnership_types, :offered_partnership_types, :customer_interests)
+    end
+
+    def update_params
+      params.permit(:other_competitors, :acq_partners, :des_partners, :customer_interests)
+    end
+
+    def create_params
+      params.permit(:name, :tagline, :url, :photo, :photo_cache, :industries, :youtube_url, :employees, desired_partnership_types: [], offered_partnership_types: [])
+    end
+
+    def update_business(current_business, base_hash)
+      # current_business.other_partners = []
+      # current_business.other_competitors = []
+
+      # acquired partnerships
+      acquired_partnerships = base_hash["acq_partners"].split(', ')
+
+      acquired_partnerships.each do |acq|
+        if acq_bus = Business.where("lower(name) LIKE ?", "#{acq}".downcase).first
+          current_business.partnerships.acquired.create!(partner: acq_bus)
+        else
+          current_business.other_partners << acq + " (acq)"
+          current_business.save!
+        end
+      end
+
+      # desired partnerships
+      desired_partnerships = base_hash["des_partners"].split(', ')
+
+      desired_partnerships.each do |des|
+        if des_bus = Business.where("lower(name) LIKE ?", "#{des}".downcase).first
+          current_business.partnerships.desired.create!(partner: des_bus)
+        else
+          current_business.other_partners << des + " (des)"
+          current_business.save!
+        end
+      end
+
+      # competitors
+      competitors = base_hash["other_competitors"].split(', ')
+
+      competitors.each do |competitor|
+        if comp = Business.where("lower(name) LIKE ?", "#{competitor}".downcase).first
+          current_business.competitions.create!(competitor: comp)
+        else
+          current_business.other_competitors << competitor
+          current_business.save!
+        end
+      end
+
+      # interests
+      interests = base_hash["customer_interests"].split(', ')
+
+      interests.each do |interest|
+        current_business.business_customer_interests.create!(
+          customer_interest: CustomerInterest.where(name: interest).first_or_create
+        )
+      end
+
+      # raise
+      # save updates
+      current_business.save!
+    end
 end

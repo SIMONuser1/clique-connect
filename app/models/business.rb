@@ -13,6 +13,7 @@ class Business < ApplicationRecord
   has_many :businesses_clicked, through: :clicks, source: :clicked
   has_many :business_customer_interests, dependent: :destroy
   has_many :customer_interests, through: :business_customer_interests
+
   mount_uploader :photo, PhotoUploader
 
   after_create :add_description
@@ -142,8 +143,8 @@ class Business < ApplicationRecord
   private
 
   def click_counts(business)
-    you_clicked_them = clicks.where(clicked_id: business.id).count
-    they_clicked_you = business.clicks.where(clicked_id: id).count
+    you_clicked_them = clicks.where(clicked_id: business.id).first.count
+    they_clicked_you = business.clicks.where(clicked_id: id).first.count
 
     [you_clicked_them, they_clicked_you]
   end
