@@ -1,5 +1,5 @@
 <article>
-  <h6>Your Customer Interest matches with <%= @business.name %>:</h6><br>
+  <h6>Your Industry matches with <%= @business.name %>:</h6><br>
   <% if current_user.business.industries_match(@business).empty? %>
     <span class="badge badge-secondary">No Industry Matches</span>
   <% else %>
