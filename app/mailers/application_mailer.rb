@@ -1,4 +1,10 @@
-class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
-  layout 'mailer'
+class TestMailer < ActionMailer::Base
+  def message
+    mail(
+      :subject => 'Hello from Postmark',
+      :to  => 'blake.rowley@cliquelabs.com',
+      :from => 'blake@aiime.io',
+      :html_body => '<strong>Hello</strong> dear Postmark user.',
+      :track_opens => 'true')
+  end
 end
