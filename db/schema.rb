@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419023536) do
+ActiveRecord::Schema.define(version: 20180424064115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(version: 20180419023536) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.bigint "owner_id"
+    t.bigint "noted_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "author_id"
+    t.index ["author_id"], name: "index_notes_on_author_id"
+    t.index ["noted_id"], name: "index_notes_on_noted_id"
+    t.index ["owner_id"], name: "index_notes_on_owner_id"
+  end
+
   create_table "partnerships", force: :cascade do |t|
     t.bigint "business_id"
     t.bigint "partner_id"
@@ -117,6 +129,9 @@ ActiveRecord::Schema.define(version: 20180419023536) do
   add_foreign_key "clicks", "businesses", column: "clicker_id"
   add_foreign_key "competitions", "businesses"
   add_foreign_key "competitions", "businesses", column: "competitor_id"
+  add_foreign_key "notes", "businesses", column: "noted_id"
+  add_foreign_key "notes", "businesses", column: "owner_id"
+  add_foreign_key "notes", "users", column: "author_id"
   add_foreign_key "partnerships", "businesses"
   add_foreign_key "partnerships", "businesses", column: "partner_id"
   add_foreign_key "suggestions", "businesses"

@@ -13,6 +13,7 @@ class Business < ApplicationRecord
   has_many :businesses_clicked, through: :clicks, source: :clicked
   has_many :business_customer_interests, dependent: :destroy
   has_many :customer_interests, through: :business_customer_interests
+  has_many :notes, foreign_key: :owner_id, dependent: :destroy
 
   alias_attribute :file, :photo
 
@@ -71,6 +72,10 @@ class Business < ApplicationRecord
 
   def remove_self_from_list(list)
     return list.nil? ? [] : list - [self]
+  end
+
+  def business_notes(business)
+    notes.where(noted_id: business.id)
   end
 
   def mutual_clicks(business)
