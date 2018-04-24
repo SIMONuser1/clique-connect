@@ -15,6 +15,7 @@ class BusinessesController < ApplicationController
       click.count += 1
       click.save
     end
+    @note = Note.new
     redirect_to my_business_path if current_user.business == @business
   end
 
