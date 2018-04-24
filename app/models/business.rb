@@ -70,7 +70,7 @@ class Business < ApplicationRecord
   end
 
   def remove_self_from_list(list)
-   list - [self]
+    return list.nil? ? [] : list - [self]
   end
 
   def mutual_clicks(business)
@@ -78,9 +78,10 @@ class Business < ApplicationRecord
   end
 
   def companies_competitors_clicked
-    a = competitors.sample.clicks.limit(6)
-    a.map do |click|
-      Business.find(click.clicked_id)
+    unless self.competitors.first.nil?
+      competitors.sample.clicks.limit(6).map do |click|
+        Business.find(click.clicked_id)
+      end
     end
   end
 
@@ -140,8 +141,21 @@ class Business < ApplicationRecord
   end
 
   def also_clicked
-     Business.where("industries && ARRAY[?]::varchar[]", industries).where.not(id: self.id).limit(4)
-   end
+    ind_list = remove_self_from_list(Business.where("industries && ARRAY[?]::varchar[]", industries))
+
+    cust_list = remove_self_from_list(BusinessCustomerInterest.where(customer_interest_id: self.business_customer_interest_ids)
+      .map(&:business)
+      )
+
+    # raise
+    if ind_list.empty? && cust_list.empty?
+      Business.where.not(id: self.id).sample(4)
+    elsif ind_list.empty?
+      cust_list.sample(4)
+    else
+      ind_list.sample(4)
+    end
+  end
 
   private
 
