@@ -29,8 +29,8 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle dropdown-toggle-no-arrow p-lg-0" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <% if current_user.nil? || current_user.avatar.nil? %>
-                                <%= image_tag("img/photo-couple-couch.jpg", class: 'avatar avatar-xs') %>
+                              <% if current_user.nil? || current_user.avatar_url.nil? %>
+                                <%= image_tag("img/profilegrey.png", class: 'avatar avatar-xs') %>
                               <% else %>
                                 <%= cl_image_tag @photo, class: 'avatar avatar-xs' %>
                               <% end %>
