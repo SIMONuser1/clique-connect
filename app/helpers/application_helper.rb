@@ -7,4 +7,12 @@ module ApplicationHelper
   #     new_business_path
   #   end
   # end
+
+  def display_avatar(user)
+    if user.nil? || user.avatar_url.nil?
+      image_tag('img/profilegrey.png', class: 'avatar avatar-xs')
+    else
+      cl_image_tag(user.avatar, class: 'avatar avatar-xs')
+    end
+  end
 end

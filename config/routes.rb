@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get '/assign_business', to: 'pages#assign_business'
   get '/search', to: 'pages#search'
   get '/my_business', to: 'businesses#my_business'
+  get '/my_business/edit', to: 'businesses#edit'
   get '/matched_business', to: 'suggestions#matched_business'
   get '/hail_mary', to: 'suggestions#hail_mary'
   match "/404", :to => "errors#not_found", :via => :all
