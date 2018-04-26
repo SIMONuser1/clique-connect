@@ -13,6 +13,7 @@ puts "Clearing Algolia Index..."
 Business.clear_index!
 
 puts "Clearing database..."
+Note.destroy_all
 User.destroy_all
 Suggestion.destroy_all
 Click.destroy_all

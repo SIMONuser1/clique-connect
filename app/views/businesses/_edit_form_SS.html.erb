@@ -1,0 +1,108 @@
+<div class="main-container">
+  <%= cloudinary_js_config %>
+  <section>
+    <div class="container">
+      <%= form_tag(businesses_path, method: "post", multipart: true, id: 'edit-business-form', class: 'row justify-content-around') do %>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= label_tag(:name, "Company Name:") %>
+                <%= text_field_tag(:name, nil, placeholder: "Company Name", class: "form-control form-control-lg") %>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= text_field_tag(:tagline, nil, placeholder: "Company Tagline", class: "form-control form-control-lg") %>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= label_tag(:url, "Company URL:") %>
+                <%= text_field_tag(:url, nil, placeholder: "Your Business Website URL", class: "form-control form-control-lg") %>
+              </div>
+              <div class="col">
+                 <% label_tag(:photo, "Company Logo:") %>
+                 <%= cl_upload_tag(:photo) %>
+                 <%= hidden_field_tag :photo_cache %>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= select_tag(:employees, options_for_select(Business.employees.values), include_blank: "Number of employees", class: "form-control form-control-lg") %>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= text_field_tag(:youtube_url, nil, placeholder: "Company youtube video url", class: "form-control form-control-lg") %>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= text_field_tag(:acq_partners, nil, placeholder: "Who are your Existing Partnerships with?", class: "form-control form-control-lg") %>
+                <small>Please separate with commas</small>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= text_field_tag(:des_partners, nil, placeholder: "Who would you like to partner with?", class: "form-control form-control-lg") %>
+                <small>Please separate with commas</small>
+              </div>
+            </div>
+            <div class="form-row form-group">
+              <div class="col">
+                <%= text_field_tag(:other_competitors, nil, placeholder: "Who are your Competitors?", class: "form-control form-control-lg") %>
+                <small>Please separate with commas</small>
+              </div>
+            </div>
+              <div class="form-row form-group">
+                <div class="col">
+                  <%= label_tag(:desired_partnership_types, "What type partnerships do you want to make?") %>
+                  <% Business::PARTNERSHIP_TYPES.each do |key, p_type| %>
+                  <br>
+                  <%= check_box_tag "desired_partnership_types[]", key, false, id: "des_#{key}" %>
+                  <%= label_tag "des_#{key}", p_type %>
+                  <% end %>
+                </div>
+                <div class="col">
+                  <%= label_tag(:offered_partnership_types, "What type partnerships can you offer?") %>
+                  <% Business::PARTNERSHIP_TYPES.each do |key, p_type| %>
+                  <br>
+                  <%= check_box_tag "offered_partnership_types[]", key, false, id: "off_#{key}" %>
+                  <%= label_tag "off_#{key}", p_type %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <!--end of row-->
+            <div class="form-row form-group">
+              <div class="col">
+                <%= label_tag :industries, "What are your company industries?" %>
+                <%= text_field_tag(:industries, nil, placeholder: "e-Commerce, Retail, Fashion ...", class: "form-control form-control-lg") %>
+                <small>Please separate with commas</small>
+              </div>
+            </div>
+
+            <div class="form-row form-group">
+              <div class="col">
+                <%= label_tag :customer_interests, "What are your customers interested in?" %>
+                <%= text_field_tag(:customer_interests, nil, placeholder: "Beauty, Cosmetics, Fashion ...", class: "form-control form-control-lg") %>
+                <small>Please separate with commas</small>
+              </div>
+            </div>
+          <button type="submit" class="btn btn-success btn-lg">Update Business</button>
+        </div>
+        <!--end of col-->
+        <% end %>
+        <!--end of row-->
+      </div>
+      <!--end of container-->
+    </section>
+    <!--end of section-->
+  </div>
+  <script type="text/javascript">
+    $(function() {
+      if($.fn.cloudinary_fileupload !== undefined) {
+        $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+      }
+    });
+  </script>

@@ -1,5 +1,6 @@
 class BusinessesController < ApplicationController
-  before_action :set_business, only: [:show, :edit, :update, :destroy]
+  before_action :set_business, only: [:show, :destroy]
+  before_action :set_my_business, only: [:edit, :update]
   skip_before_action :user_needs_business
 
   # GET /businesses
@@ -85,6 +86,10 @@ class BusinessesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_business
       @business = Business.find(params[:id])
+    end
+
+    def set_my_business
+      @business = current_user.business
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
