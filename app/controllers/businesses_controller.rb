@@ -57,6 +57,7 @@ class BusinessesController < ApplicationController
   # PATCH/PUT /businesses/1
   # PATCH/PUT /businesses/1.json
   def update
+    raise
     respond_to do |format|
       if @business.update(business_params)
         format.html { redirect_to @business, notice: 'Business was successfully updated.' }
