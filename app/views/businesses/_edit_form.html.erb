@@ -1,7 +1,7 @@
 <div class="container">
   <%= cloudinary_js_config %>
   <section>
-    <%= form_tag(businesses_path, method: "post", multipart: true, id: 'edit-business-form') do %>
+    <%= form_tag(business_path(business), method: "patch", multipart: true, id: 'edit-business-form') do %>
           <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
           <div class="form-row form-group">
             <div class="col">
@@ -54,8 +54,8 @@
           </div>
 
           <div class="form-group">
-              <%= label_tag(:competitors, "Competitors:") %>
-              <%= text_field_tag(:competitors, nil, value: (business.competitors.map(&:name)+business.other_competitors).join(', '), class: "form-control form-control-lg") %>
+              <%= label_tag(:other_competitors, "Competitors:") %>
+              <%= text_field_tag(:other_competitors, nil, value: (business.competitors.map(&:name)+business.other_competitors).join(', '), class: "form-control form-control-lg") %>
               <small>Please separate with commas</small>
           </div>
 

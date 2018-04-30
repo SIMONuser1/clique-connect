@@ -10,6 +10,9 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # Load the web console
+  # config.web_console.automount = true
+
   # Do not eager load code on boot.
   config.eager_load = false
 
