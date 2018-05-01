@@ -34,8 +34,7 @@
                 <li class="list-inline-item">
                   <span class="badge badge-primary badge-pill"><strong>
                     <!-- <i class="fas fa-hand-holding-heart"></i>-->
-                  Match Rate:
-                  <%= current_user.business.match_percent_with(suggestion.business) %>%</strong>
+                  <%= current_user.business.match_rating_with(suggestion.business) %></strong>
                 </span>
                 <li class="list-inline-item">|</li>
                 </li>

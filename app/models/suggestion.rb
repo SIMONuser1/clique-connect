@@ -16,6 +16,25 @@ class Suggestion < ApplicationRecord
     @weights || WEIGHTS
   end
 
+  def scaled_rating
+    max = self.business.suggestions.first.rating
+    (self.rating / max.to_f) * 100
+  end
+
+  def text_rating
+    rating = scaled_rating
+
+    if rating < 40
+      "Below Average Match"
+    elsif rating < 60
+      "Average Match"
+    elsif rating < 80
+      "Good Match"
+    else
+      "Great Match"
+    end
+  end
+
   def calculate_rating
     des_p_types_rating            = 0
     des_partnerships_rating       = 0

@@ -51,6 +51,10 @@ class Business < ApplicationRecord
     suggestions.where(suggested_business_id: business.id).first.rating
   end
 
+  def match_rating_with(business)
+    suggestions.where(suggested_business_id: business.id).first.text_rating
+  end
+
   def who_clicked_who(business)
     click_array = click_counts(business)
 
