@@ -21,13 +21,13 @@ class Business < ApplicationRecord
 
   after_create :add_description
 
-  include AlgoliaSearch
+  # include AlgoliaSearch
 
-  algoliasearch per_environment: true do
-    attribute :name, :industries, :customer_interests
-    attributesForFaceting [:customer_interests]
-    searchableAttributes ['name']
-  end
+  # algoliasearch per_environment: true do
+  #   attribute :name, :industries, :customer_interests
+  #   attributesForFaceting [:customer_interests]
+  #   searchableAttributes ['name']
+  # end
 
   enum employees: {
     :"1_to_10" => "1 to 10",

@@ -57,8 +57,9 @@ class BusinessesController < ApplicationController
   # PATCH/PUT /businesses/1
   # PATCH/PUT /businesses/1.json
   def update
+    # raise
     respond_to do |format|
-      if @business.update(business_params)
+      if @business.update(create_params) && update_business(@business, update_params)
         format.html { redirect_to @business, notice: 'Business was successfully updated.' }
         format.json { render :show, status: :ok, location: @business }
       else
@@ -118,7 +119,7 @@ class BusinessesController < ApplicationController
 
       acquired_partnerships.each do |acq|
         if acq_bus = Business.where("lower(name) LIKE ?", "#{acq}".downcase).first
-          current_business.partnerships.acquired.create!(partner: acq_bus)
+          current_business.partnerships.acquired.where(partner: acq_bus).first_or_create
         else
           current_business.other_partners << acq + " (acq)"
           current_business.save!
@@ -130,7 +131,7 @@ class BusinessesController < ApplicationController
 
       desired_partnerships.each do |des|
         if des_bus = Business.where("lower(name) LIKE ?", "#{des}".downcase).first
-          current_business.partnerships.desired.create!(partner: des_bus)
+          current_business.partnerships.desired.where(partner: des_bus).first_or_create
         else
           current_business.other_partners << des + " (des)"
           current_business.save!
@@ -142,7 +143,7 @@ class BusinessesController < ApplicationController
 
       competitors.each do |competitor|
         if comp = Business.where("lower(name) LIKE ?", "#{competitor}".downcase).first
-          current_business.competitions.create!(competitor: comp)
+          current_business.competitions.where(competitor: comp).first_or_create
         else
           current_business.other_competitors << competitor
           current_business.save!

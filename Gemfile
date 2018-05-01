@@ -26,7 +26,7 @@ gem 'algoliasearch-rails'
 
 
 group :development do
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console'
 end
 
 group :development, :test do
