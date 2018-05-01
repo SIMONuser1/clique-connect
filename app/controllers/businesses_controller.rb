@@ -34,7 +34,7 @@ class BusinessesController < ApplicationController
   # POST /businesses.json
   def create
     create_hash = create_params
-    create_hash["industries"] = create_hash["industries"].split(', ').map(&:capitalize)
+    create_hash["industries"] = create_hash["industries"].split(', ').map{ |e| e.strip.capitalize }
     create_hash["employees"] = Business.employees.invert[create_hash["employees"]]
     # raise
     @business = Business.new(create_hash)
@@ -57,9 +57,11 @@ class BusinessesController < ApplicationController
   # PATCH/PUT /businesses/1
   # PATCH/PUT /businesses/1.json
   def update
+    create_hash = create_params
+    create_hash["industries"] = create_hash["industries"].split(', ').map{ |e| e.strip.capitalize }
     # raise
     respond_to do |format|
-      if @business.update(create_params) && update_business(@business, update_params)
+      if @business.update(create_hash) && update_business(@business, update_params)
         format.html { redirect_to @business, notice: 'Business was successfully updated.' }
         format.json { render :show, status: :ok, location: @business }
       else
