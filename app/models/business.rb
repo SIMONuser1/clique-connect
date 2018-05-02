@@ -21,13 +21,13 @@ class Business < ApplicationRecord
 
   after_create :add_description
 
-  # include AlgoliaSearch
+  include AlgoliaSearch
 
-  # algoliasearch per_environment: true do
-  #   attribute :name, :industries, :customer_interests
-  #   attributesForFaceting [:customer_interests]
-  #   searchableAttributes ['name']
-  # end
+  algoliasearch per_environment: true do
+    attribute :name, :industries, :customer_interests
+    attributesForFaceting [:customer_interests]
+    searchableAttributes ['name']
+  end
 
   enum employees: {
     :"1_to_10" => "1 to 10",
@@ -67,6 +67,10 @@ class Business < ApplicationRecord
     else
       "Both clicked"
     end
+  end
+
+  def locations
+    users.map(&:location)
   end
 
   def who_matched_with_me
@@ -111,14 +115,7 @@ class Business < ApplicationRecord
   end
 
   def update_suggestions!(weights = nil)
-    suggestions.destroy_all
-
-    (Business.all - [self]).each do |business|
-      suggestions.create!(
-        suggested_business: business,
-        weights: weights
-      )
-    end
+    suggestions.map(&:update_rating)
     suggested_businesses
   end
 
