@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424064115) do
+ActiveRecord::Schema.define(version: 20180502044207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,16 @@ ActiveRecord::Schema.define(version: 20180424064115) do
     t.index ["suggested_business_id"], name: "index_suggestions_on_suggested_business_id"
   end
 
+  create_table "user_suggestions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "suggestion_id"
+    t.string "day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["suggestion_id"], name: "index_user_suggestions_on_suggestion_id"
+    t.index ["user_id"], name: "index_user_suggestions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -136,5 +146,7 @@ ActiveRecord::Schema.define(version: 20180424064115) do
   add_foreign_key "partnerships", "businesses", column: "partner_id"
   add_foreign_key "suggestions", "businesses"
   add_foreign_key "suggestions", "businesses", column: "suggested_business_id"
+  add_foreign_key "user_suggestions", "suggestions"
+  add_foreign_key "user_suggestions", "users"
   add_foreign_key "users", "businesses"
 end

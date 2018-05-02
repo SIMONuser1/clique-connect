@@ -14,6 +14,7 @@ gem 'faker'
 gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
 gem 'postmark-rails'
+# gem 'whenever' # use Heroku Scheduler instead
 
 gem 'autoprefixer-rails'
 # gem 'bootstrap', '~> 4.0.0'
