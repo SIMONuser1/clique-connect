@@ -15,8 +15,4 @@ module ApplicationHelper
       cl_image_tag(user.avatar, class: 'avatar avatar-xs')
     end
   end
-
-  def update_daily_suggestions
-    User.all.map(&:get_daily_suggestion)
-  end
 end

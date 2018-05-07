@@ -43,28 +43,44 @@ class User < ApplicationRecord
     last_ten
   end
 
+  def remove_previous_suggestions(list)
+    list - self.suggestions
+  end
+
   def get_daily_suggestion
-    filtered_suggestions = location_filtered_suggestions
+    filtered_suggestions = remove_previous_suggestions(location_filtered_suggestions)
+    return if filtered_suggestions.nil? || filtered_suggestions.empty?
 
     day = Date.today.strftime("%A")
-    attempt = nil
-    counter = 0
+    # testing
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    day = days.sample
 
-    while attempt.nil? || suggestions.include?(attempt)
-      if day == 'Monday'
-        # Return a below average match
-        attempt = filtered_suggestions.select{ |s| s.text_rating == 'Below Average Match' }.sample
-      elsif ['Tuesday', 'Wednesday', 'Thursday'].include?(day)
-        # Return as good a match as possible
-        attempt = filtered_suggestions[counter]
-        counter += 1
-      elsif day == 'Friday'
-        # Return a suggestion for a business matched well with you
-        other_business = filtered_suggestions.select{ |s| s.suggested_business == business }
-        attempt = Suggestion.find_by(suggested_business: other_business)
-      else
-        return
-      end
+    if day == 'Monday'
+      # Return a below average match
+      bad_list = filtered_suggestions.select{ |s| s.text_rating == 'Below Average Match' }
+      attempt = bad_list.empty? ? filtered_suggestions.sample : bad_list.sample
+
+    elsif ['Tuesday', 'Wednesday', 'Thursday'].include?(day)
+      # Return as good a match as possible
+      attempt = filtered_suggestions.first
+
+    elsif day == 'Friday'
+      # Return a suggestion for a business matched well with you
+      attempts = Suggestion.where(suggested_business: business)
+        .inject([]) do |mem, sug|
+          if sug.business.locations.include?(location)
+            mem << Suggestion.find_by(business: business, suggested_business: sug.business)
+          end
+          mem
+        end
+
+      # nested while loop so that attempts is only calculated once
+      attempts = remove_previous_suggestions(attempts)
+      return if attempts.empty?
+      attempt = attempts.first
+    else
+      return
     end
 
     self.user_suggestions.create!(suggestion: attempt, day: day)
@@ -72,6 +88,6 @@ class User < ApplicationRecord
     # Only store 20 results
     user_suggestions.order(created_at: :desc)[20..-1].map(&:destroy) if user_suggestions.count > 20
 
-    self.save
+    self.save!
   end
 end
