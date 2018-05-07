@@ -1,5 +1,6 @@
 class Suggestion < ApplicationRecord
   WEIGHTS = {:des_p_types=>1, :des_partnerships=>1, :click_count=>5, :customer_interests=>1, :des_partner_competitor=>5, :acq_partner_competitor=>1}
+  has_many :user_suggestions, dependent: :destroy
 
   # rating.each * (weight.values.each / weight.values.inject(&:+))
 
@@ -9,6 +10,7 @@ class Suggestion < ApplicationRecord
   belongs_to :suggested_business, class_name: 'Business'
 
   before_create :calculate_rating
+  before_update :calculate_rating
 
   default_scope { order(rating: :desc) }
 
@@ -33,6 +35,11 @@ class Suggestion < ApplicationRecord
     else
       "Great Match"
     end
+  end
+
+  def update_rating
+    self.calculate_rating
+    save
   end
 
   def calculate_rating
@@ -106,7 +113,6 @@ class Suggestion < ApplicationRecord
 
     final_rating = (weighted_ratings.sum * 100 / weights.values.sum.to_f).to_i
 
-    self.rating = final_rating + 45
-
+    self.rating = final_rating
   end
 end

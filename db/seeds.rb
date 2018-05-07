@@ -9,8 +9,8 @@ def def_current_business(row)
   Business.where(name: row.cells[0].value).first
 end
 
-# puts "Clearing Algolia Index..."
-# Business.clear_index!
+puts "Clearing Algolia Index..."
+Business.clear_index!
 
 puts "Clearing database..."
 Note.destroy_all
@@ -55,6 +55,8 @@ worksheet_bus.each do |row|
   unless bus_url.empty?
     domain = business.url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
   end
+
+  p business.name
 
   email = if domain.nil?
      user_hash["email"]

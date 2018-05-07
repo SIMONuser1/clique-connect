@@ -19,5 +19,5 @@ import './mrare/util';
 import './mrare/video';
 import './mrare/wizard';
 import './mrare/loader';
-// import './algolia';
+import './algolia';
 
