@@ -76,7 +76,7 @@ worksheet_bus.each do |row|
   }
 
   user = User.create!(user)
-  user.remote_avatar_url = user_hash["picture"]["large"]
+  user.remote_avatar_url = user_hash["picture"]["thumbnail"]
   user.save!
 
   business.add_domain
