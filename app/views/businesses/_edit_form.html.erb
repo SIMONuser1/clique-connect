@@ -1,8 +1,22 @@
+<section class="flush-with-above height-80 d-block">
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
 <div class="container">
   <%= cloudinary_js_config %>
   <section>
     <%= form_tag(business_path(business), method: "patch", multipart: true, id: 'edit-business-form') do %>
           <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <div class="form-row form-group">
+            <div class="col">
+               <p>Current Logo</p>
+               <%= cl_image_tag(business.photo, {class: "rounded avatar avatar-lg"}) %>
+            </div>
+            <div class="col">
+               <%= label_tag(:photo, "Update Logo:") %>
+               <%= cl_upload_tag(:photo) %>
+               <%= hidden_field_tag :photo_cache %>
+            </div>
+          </div>
           <div class="form-row form-group">
             <div class="col">
               <%= label_tag(:name, "Company Name:") %>
@@ -26,18 +40,6 @@
             <div class="col">
               <%= label_tag(:employees, "Youtube url:") %>
               <%= text_field_tag(:youtube_url, nil, value: business.youtube_url, class: "form-control form-control-lg") %>
-            </div>
-          </div>
-
-          <div class="form-row form-group">
-            <div class="col">
-               <p>Current Logo</p>
-               <%= cl_image_tag(business.photo, {class: "rounded avatar avatar-lg"}) %>
-            </div>
-            <div class="col">
-               <%= label_tag(:photo, "Update Logo:") %>
-               <%= cl_upload_tag(:photo) %>
-               <%= hidden_field_tag :photo_cache %>
             </div>
           </div>
 
