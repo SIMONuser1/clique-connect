@@ -27,6 +27,8 @@ class Business < ApplicationRecord
     attribute :name, :industries, :customer_interests
     attributesForFaceting [:customer_interests]
     searchableAttributes ['name']
+    attributeForDistinct "name"
+
   end
 
   enum employees: {
