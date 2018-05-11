@@ -72,7 +72,8 @@ worksheet_bus.each do |row|
     password_confirmation: "password",
     business_id: business.id,
     linkedin_url: 'https://www.linkedin.com/in/kate-baskin-943a15a1/',
-    location: location
+    location: location,
+    frequency: ["daily", "weekly", "monthly"].sample
   }
 
   user = User.create!(user)

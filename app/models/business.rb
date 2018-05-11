@@ -114,9 +114,16 @@ class Business < ApplicationRecord
     industries & business.industries
   end
 
+  def create_suggestions(weights = nil)
+    Business.where.not(id: id).each do |bus|
+      self.suggestions.where(suggested_business: bus).first_or_create
+    end
+  end
+
   def update_suggestions!(weights = nil)
+    create_suggestions
     suggestions.map(&:update_rating)
-    suggested_businesses
+    # suggested_businesses
   end
 
   def add_description
