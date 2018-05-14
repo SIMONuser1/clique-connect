@@ -16,6 +16,28 @@ class User < ApplicationRecord
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
+  def send_email
+    if frequency == "daily"
+      # choose daily template
+      # template =
+    elsif frequency == "weekly"
+      # choose weekly template
+      # template =
+    else
+      # choose monthly template
+      # template =
+    end
+
+    # code to send email here
+  end
+
+  # MailChimp user subscription
+  # def subscribe_user
+  #   Gibbon::API.lists.interest_groupings(id: 25803)
+  #   @merge_vars = { :GROUPINGS => [{ id: 25803, name: "Suggestion Email Frequency", groups: ['frequency']}] }
+  #   Gibbon::API.lists.subscribe({id: 25803, email: email, email_type: "html", merge_vars: @merge_vars, double_optin: false, update_existing: true, send_welcome: true})
+  # end
+
   def location_filtered_suggestions
     if location.nil?
       business.suggestions.order(:rating)
