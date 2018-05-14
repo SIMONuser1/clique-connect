@@ -27,6 +27,8 @@ class Business < ApplicationRecord
     attribute :name, :industries, :customer_interests
     attributesForFaceting [:customer_interests]
     searchableAttributes ['name']
+    attributeForDistinct "name"
+
   end
 
   enum employees: {
@@ -114,9 +116,16 @@ class Business < ApplicationRecord
     industries & business.industries
   end
 
+  def create_suggestions(weights = nil)
+    Business.where.not(id: id).each do |bus|
+      self.suggestions.where(suggested_business: bus).first_or_create
+    end
+  end
+
   def update_suggestions!(weights = nil)
+    create_suggestions
     suggestions.map(&:update_rating)
-    suggested_businesses
+    # suggested_businesses
   end
 
   def add_description

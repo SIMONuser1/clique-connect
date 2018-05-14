@@ -11,6 +11,7 @@ end
 
 puts "Clearing Algolia Index..."
 Business.clear_index!
+CustomerInterest.clear_index!
 
 puts "Clearing database..."
 Note.destroy_all
@@ -72,7 +73,8 @@ worksheet_bus.each do |row|
     password_confirmation: "password",
     business_id: business.id,
     linkedin_url: 'https://www.linkedin.com/in/kate-baskin-943a15a1/',
-    location: location
+    location: location,
+    frequency: ["daily", "weekly", "monthly"].sample
   }
 
   user = User.create!(user)
@@ -155,33 +157,33 @@ Business.all.each do |business|
   business.update_suggestions!
 end
 
-puts "Creating Demo Cases"
-tinder = Business.find_by_name('Tinder')
-ford = Business.find_by_name('Ford')
-nudie = Business.find_by_name('Nudie')
+# puts "Creating Demo Cases"
+# tinder = Business.find_by_name('Tinder')
+# ford = Business.find_by_name('Ford')
+# nudie = Business.find_by_name('Nudie')
 
-tinder.clicks.find_by_clicked_id(ford.id).update!(count: 10)
-ford.clicks.find_by_clicked_id(tinder.id).update!(count: 10)
+# tinder.clicks.find_by_clicked_id(ford.id).update!(count: 10)
+# ford.clicks.find_by_clicked_id(tinder.id).update!(count: 10)
 
-nudie.users.first.destroy
+# nudie.users.first.destroy
 
-nudie_user = {
-  first_name: 'Kate',
-  last_name: 'Baskin',
-  email: 'kate.baskin@nudie.com',
-  password: "password",
-  password_confirmation: "password",
-  business_id: nudie.id,
-  linkedin_url: 'https://www.linkedin.com/in/kate-baskin-943a15a1/',
-  location: 'Australia'
-}
+# nudie_user = {
+#   first_name: 'Kate',
+#   last_name: 'Baskin',
+#   email: 'kate.baskin@nudie.com',
+#   password: "password",
+#   password_confirmation: "password",
+#   business_id: nudie.id,
+#   linkedin_url: 'https://www.linkedin.com/in/kate-baskin-943a15a1/',
+#   location: 'Australia'
+# }
 
-kate = User.create!(nudie_user)
+# kate = User.create!(nudie_user)
 
-kate.remote_avatar_url = 'https://media.licdn.com/dms/image/C5603AQEt24SkG3jiLw/profile-displayphoto-shrink_800_800/0?e=1529373600&v=beta&t=17xjY0wVM9WRtHilpncSPzQTYnD6AeWd46WvkezuJ2s'
-kate.save!
-nudie.users << kate
-nudie.youtube_url = 'https://www.youtube.com/watch?v=Zum4X77SXcM'
-nudie.save!
+# kate.remote_avatar_url = 'https://media.licdn.com/dms/image/C5603AQEt24SkG3jiLw/profile-displayphoto-shrink_800_800/0?e=1529373600&v=beta&t=17xjY0wVM9WRtHilpncSPzQTYnD6AeWd46WvkezuJ2s'
+# kate.save!
+# nudie.users << kate
+# nudie.youtube_url = 'https://www.youtube.com/watch?v=Zum4X77SXcM'
+# nudie.save!
 
 puts "Done!"
