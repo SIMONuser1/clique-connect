@@ -24,7 +24,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'algoliasearch-rails'
-# gem 'gibbon'
+gem 'gibbon'
 
 
 group :development do

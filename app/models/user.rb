@@ -12,6 +12,15 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
+  after_create :subscribe_user
+  after_update :update_subscription
+
+  MAILCHIMP_SUBGROUP_IDS = {
+    "daily" => ENV['MAILCHIMP_DAILY_ID'],
+    "weekly" => ENV['MAILCHIMP_WEEKLY_ID'],
+    "monthly" => ENV['MAILCHIMP_MONTHLY_ID']
+  }
+
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
@@ -23,20 +32,61 @@ class User < ApplicationRecord
     elsif frequency == "weekly"
       # choose weekly template
       # template =
-    else
+    elsif frequency == "monthly"
       # choose monthly template
       # template =
+    else # frequency == "never"
+      return
     end
 
     # code to send email here
   end
 
-  # MailChimp user subscription
-  # def subscribe_user
-  #   Gibbon::API.lists.interest_groupings(id: 25803)
-  #   @merge_vars = { :GROUPINGS => [{ id: 25803, name: "Suggestion Email Frequency", groups: ['frequency']}] }
-  #   Gibbon::API.lists.subscribe({id: 25803, email: email, email_type: "html", merge_vars: @merge_vars, double_optin: false, update_existing: true, send_welcome: true})
-  # end
+  # MailChimp user subscription functions
+  def gibbon_init
+    Gibbon::Request.new(api_key: ENV['MAILCHIMP_API_KEY'])
+  end
+
+  def mailchimp_frequency_hash
+    frequencies = {
+      "#{ENV['MAILCHIMP_DAILY_ID']}" => false,
+      "#{ENV['MAILCHIMP_WEEKLY_ID']}" => false,
+      "#{ENV['MAILCHIMP_MONTHLY_ID']}" => false
+    }
+
+    frequencies["#{MAILCHIMP_SUBGROUP_IDS[frequency]}"] = true
+
+    frequencies
+  end
+
+  def subscribe_user
+    gibbon = gibbon_init
+    md5_email = Digest::MD5.hexdigest(email.downcase)
+
+    gibbon.lists(ENV['MAILCHIMP_LIST_ID']).members(md5_email).upsert(
+      body: {
+        email_address: email,
+        status: "subscribed",
+        interests: mailchimp_frequency_hash,
+        merge_fields: {
+          FNAME: first_name,
+          LNAME: last_name
+        }
+      }
+    )
+  end
+
+  def update_subscription
+    frequency == "never" ? unsubscribe : subscribe_user
+  end
+
+  def unsubscribe
+    gibbon = gibbon_init
+    md5_email = Digest::MD5.hexdigest(email.downcase)
+
+    gibbon.lists(ENV['MAILCHIMP_LIST_ID']).members(md5_email).update(body: { status: "unsubscribed" })
+  end
+  # End of MailChimp functions
 
   def location_filtered_suggestions
     if location.nil?

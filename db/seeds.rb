@@ -14,6 +14,7 @@ Business.clear_index!
 CustomerInterest.clear_index!
 
 puts "Clearing database..."
+User.all.map(&:unsubscribe)
 Note.destroy_all
 User.destroy_all
 Suggestion.destroy_all
@@ -57,16 +58,17 @@ worksheet_bus.each do |row|
     domain = business.url.match(/[http[s]?:\/\/]?(?:www\.)?([\w\-]*(?:\.[a-z\.]+))/i)[-1]
   end
 
-  p business.name
+  puts business_hash[:name]
 
+  first_name = Faker::Name.first_name
   email = if domain.nil?
-     user_hash["email"]
+     "#{first_name}@#{business_hash[:name].gsub(/[\W\d]+/, "")}.com"
   else
-    "#{Faker::Name.first_name}@#{domain}"
+    "#{first_name}@#{domain}"
   end
 
   user = {
-    first_name: Faker::Name.first_name,
+    first_name: first_name,
     last_name: user_hash["name"]["last"],
     email: email,
     password: "password",
