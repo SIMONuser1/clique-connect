@@ -44,7 +44,7 @@ class BusinessesController < ApplicationController
     respond_to do |format|
       if @business.save
         update_business(@business, update_params)
-        # raise
+        @business.create_suggestions
         format.html { redirect_to suggestions_path, notice: 'Business was successfully created.' }
         format.json { render :show, status: :created, location: @business }
       else

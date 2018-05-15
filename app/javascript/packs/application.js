@@ -20,4 +20,6 @@ import './mrare/video';
 import './mrare/wizard';
 import './mrare/loader';
 import './algolia';
+import './customerinterest';
+import './injecttag';
 

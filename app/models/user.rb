@@ -30,7 +30,7 @@ class User < ApplicationRecord
   def last_ten_suggestions
     # raise
     filtered_suggestions = location_filtered_suggestions
-
+    # raise
     last_ten = user_suggestions.order(created_at: :desc)[0..9].map(&:suggestion)
     counter = 0
     # raise
