@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :suggestions, through: :user_suggestions
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
   belongs_to :business, required: false
 
   mount_uploader :avatar, AvatarUploader
