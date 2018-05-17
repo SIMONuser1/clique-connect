@@ -165,7 +165,13 @@
               <div class="col">
                 <%= label_tag :customer_interests, "What are your customers interested in?" %>
                 <%= text_field_tag(:customer_interests, nil, placeholder: "Beauty, Cosmetics, Fashion ...", class: "form-control form-control-lg") %>
-                <small>Please separate with commas</small>
+
+               <!--  Here is the HTML for the Search container  -->
+<!--                 <div class="aa-input-container" id="form-control form-control-lg">
+                    <input type="search" id="aa-search-input-two" class="form-control form-control-lg" placeholder="Search for Customer Interests" name="search" autocomplete="off" />
+                </div> -->
+                <!-- End of the HTML for the Search container  -->
+                <small>To add a new Tag, Press Enter</small>
               </div>
             </div>
             <button class="btn btn-success sw-btn-next mt-4" type="button">Next Step</button>
@@ -198,6 +204,7 @@
     </section>
     <!--end of section-->
   </div>
+
   <script type="text/javascript">
     $(function() {
       if($.fn.cloudinary_fileupload !== undefined) {
