@@ -47,14 +47,12 @@ for iso in ['ES', 'PT']:
     attributes.loc[(attributes['country_iso2'] == iso, 'country_iso2')] = 'IBERE'
 for iso in ['CO', 'CL']:
     attributes.loc[(attributes['country_iso2'] == iso, 'country_iso2')] = 'CO/CL'
-attributes.head()
 
 # converting country to numerical values
 for iso in attributes.country_iso2.unique():
         attributes['is_' + iso + '?'] = attributes['country_iso2'].map( {iso: 1.0} ).astype(str).astype(float)
 # replacing NaN values by 0
 attributes = attributes.fillna(0)
-attributes.head()
 
 # rename column
 attributes.columns = attributes.columns.str.replace(' ','')
@@ -77,7 +75,6 @@ Y.head(3)
 
 # create X
 X = dataset[dataset.columns[0:97]]
-X.head()
 X.describe().T.sort_values('std')
 
 
@@ -96,9 +93,6 @@ for iso in attributes.country_iso2.unique():
         X_train['is_' + iso + '?'] = dataset['is_' + iso + '?']
 for iso in attributes.country_iso2.unique():
         X_test['is_' + iso + '?'] = dataset['is_' + iso + '?']
-X.head()
-X_train.head()
-X_test.head()
 
 
 # Logistic Regression
