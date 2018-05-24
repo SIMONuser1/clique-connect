@@ -27,19 +27,14 @@ class User < ApplicationRecord
 
   def send_email
     if frequency == "daily"
-      # choose daily template
-      # template =
+      UserMailer.with(user: self).daily_suggestions.deliver_now
     elsif frequency == "weekly"
-      # choose weekly template
-      # template =
+      UserMailer.with(user: self).weekly_suggestions.deliver_now
     elsif frequency == "monthly"
-      # choose monthly template
-      # template =
+      UserMailer.with(user: self).monthly_suggestions.deliver_now
     else # frequency == "never"
       return
     end
-
-    # code to send email here
   end
 
   # MailChimp user subscription functions
