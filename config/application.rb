@@ -19,6 +19,12 @@ module CliqueConnect
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    # Postmark stuff
+    # Want to test our APIs and activity logging? Send emails to test@blackhole.postmarkapp.com
+    config.action_mailer.delivery_method     = :postmark
+    config.action_mailer.postmark_settings   = { api_key: ENV['postmark_api_key'] }
+    config.action_mailer.default_url_options = { host: "aiime.io" }
+
     # paths.clique-connect.views << "clique-connect/views/devise" # may need this for devise views
 
     # Settings in config/environments/* take precedence over those specified here.

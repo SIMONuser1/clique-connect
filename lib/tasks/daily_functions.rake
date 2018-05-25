@@ -1,5 +1,6 @@
 namespace :daily_functions do
-  desc "Functions to be exectuted daily"
+  desc "Functions to be executed daily"
+
   task update_daily_suggestions: :environment do
     User.all.map(&:get_daily_suggestion)
   end
@@ -38,4 +39,7 @@ namespace :daily_functions do
     end
   end
 
+  task send_daily_email: :environment do
+    User.where(frequency: "daily").map(&:send_email)
+  end
 end
