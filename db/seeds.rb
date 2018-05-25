@@ -9,20 +9,33 @@ def def_current_business(row)
   Business.where(name: row.cells[0].value).first
 end
 
+start_time = Time.now
+
 puts "Clearing Algolia Index..."
 Business.clear_index!
 CustomerInterest.clear_index!
 
 puts "Clearing database..."
+
+puts "Unsubscribing users..."
 User.all.map(&:unsubscribe)
+puts "Destroying notes..."
 Note.destroy_all
+puts "Destroying users..."
 User.destroy_all
+puts "Destroying suggestions..."
 Suggestion.destroy_all
+puts "Destroying clicks..."
 Click.destroy_all
+puts "Destroying business customer interests..."
 BusinessCustomerInterest.destroy_all
+puts "Destroying customer interests..."
 CustomerInterest.destroy_all
+puts "Destroying partneships..."
 Partnership.destroy_all
+puts "Destroying competitions..."
 Competition.destroy_all
+puts "Destroying businesses..."
 Business.destroy_all
 
 puts "Reading excel file..."
@@ -156,7 +169,8 @@ end
 
 puts "Adding suggestions..."
 Business.all.each do |business|
-  business.update_suggestions!
+  # business.update_suggestions!
+  business.create_suggestions
 end
 
 # puts "Creating Demo Cases"
@@ -188,4 +202,9 @@ end
 # nudie.youtube_url = 'https://www.youtube.com/watch?v=Zum4X77SXcM'
 # nudie.save!
 
-puts "Done!"
+time_taken = ((Time.now - start_time) / 60).round(2)
+
+mins = time_taken.floor
+secs = (time_taken % 1 * 60).floor
+
+puts "Done! Time taken: #{mins} min #{secs} sec"
