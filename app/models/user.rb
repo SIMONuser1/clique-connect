@@ -12,9 +12,76 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
+  after_create :subscribe_user
+  after_update :update_subscription
+
+  MAILCHIMP_SUBGROUP_IDS = {
+    "daily" => ENV['MAILCHIMP_DAILY_ID'],
+    "weekly" => ENV['MAILCHIMP_WEEKLY_ID'],
+    "monthly" => ENV['MAILCHIMP_MONTHLY_ID']
+  }
+
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
+
+  def send_email
+    if frequency == "daily"
+      UserMailer.with(user: self).daily_suggestions.deliver_now
+    elsif frequency == "weekly"
+      UserMailer.with(user: self).weekly_suggestions.deliver_now
+    elsif frequency == "monthly"
+      UserMailer.with(user: self).monthly_suggestions.deliver_now
+    else # frequency == "never"
+      return
+    end
+  end
+
+  # MailChimp user subscription functions
+  def gibbon_init
+    Gibbon::Request.new(api_key: ENV['MAILCHIMP_API_KEY'])
+  end
+
+  def mailchimp_frequency_hash
+    frequencies = {
+      "#{ENV['MAILCHIMP_DAILY_ID']}" => false,
+      "#{ENV['MAILCHIMP_WEEKLY_ID']}" => false,
+      "#{ENV['MAILCHIMP_MONTHLY_ID']}" => false
+    }
+
+    frequencies["#{MAILCHIMP_SUBGROUP_IDS[frequency]}"] = true
+
+    frequencies
+  end
+
+  def subscribe_user
+    gibbon = gibbon_init
+    md5_email = Digest::MD5.hexdigest(email.downcase)
+
+    gibbon.lists(ENV['MAILCHIMP_LIST_ID']).members(md5_email).upsert(
+      body: {
+        email_address: email,
+        status: "subscribed",
+        interests: mailchimp_frequency_hash,
+        merge_fields: {
+          FNAME: first_name,
+          LNAME: last_name
+        }
+      }
+    )
+  end
+
+  def update_subscription
+    frequency == "never" ? unsubscribe : subscribe_user
+  end
+
+  def unsubscribe
+    gibbon = gibbon_init
+    md5_email = Digest::MD5.hexdigest(email.downcase)
+
+    gibbon.lists(ENV['MAILCHIMP_LIST_ID']).members(md5_email).update(body: { status: "unsubscribed" })
+  end
+  # End of MailChimp functions
 
   def location_filtered_suggestions
     if location.nil?

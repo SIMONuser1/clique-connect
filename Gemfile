@@ -6,13 +6,14 @@ gem 'figaro'
 gem 'jbuilder', '~> 2.0'
 gem 'pg', '~> 0.21'
 gem 'puma'
-gem 'rails', '5.1.5'
+gem 'rails', '5.1.5' # '5.0.0'
 gem 'redis'
 gem 'jquery-rails'
 gem 'rubyXL'
 gem 'faker'
 gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
+# gem 'postmark'
 gem 'postmark-rails'
 # gem 'whenever' # use Heroku Scheduler instead
 
@@ -24,6 +25,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'algoliasearch-rails'
+gem 'gibbon'
 
 
 group :development do
