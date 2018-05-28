@@ -42,4 +42,8 @@ namespace :daily_functions do
   task send_daily_email: :environment do
     User.where(frequency: "daily").map(&:send_email)
   end
+
+  task check_for_inactive_emails: :environment do
+    UserMailer.check_bounced_emails
+  end
 end

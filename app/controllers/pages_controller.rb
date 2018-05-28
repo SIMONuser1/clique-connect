@@ -1,9 +1,14 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
+  skip_before_action :user_must_be_confirmed, only: [:home]
   skip_before_action :user_needs_business, only: [:home, :welcome, :assign_business]
 
   def home
   end
+
+  # def confirmation
+  #   redirect_to welcome_path if current_user.confirmed?
+  # end
 
   def welcome
     email_domain = current_user.email.match(/(?<=@).+/)[0]

@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     resources :notes, only: [:create]
   end
 
-  devise_for :users, controllers: {sessions: "sessions", registrations: "registrations"}
+  devise_for :users, controllers: {
+    sessions: "sessions",
+    registrations: "registrations",
+    confirmations: "confirmations"
+  }
 
   authenticated :user do
     root 'suggestions#index', as: :authenticated_root

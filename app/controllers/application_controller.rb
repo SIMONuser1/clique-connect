@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :user_needs_business
   before_action :user_photo
+  before_action :user_must_be_confirmed
 
 #   def after_sign_up_path_for(resource_or_scope)
 #     raise
@@ -18,6 +19,12 @@ class ApplicationController < ActionController::Base
     unless current_user.business
       # raise
       redirect_to welcome_path, notice: "You must have a business"
+    end
+  end
+
+  def user_must_be_confirmed
+    unless current_user.confirmed?
+      redirect_to confirmation_path, notice: "New users must be confirmed"
     end
   end
 

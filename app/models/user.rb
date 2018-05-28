@@ -25,6 +25,13 @@ class User < ApplicationRecord
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
+  def unconfirm
+    frequency = "never"
+    confirmation_token = nil
+    confirmed_at = nil
+    save
+  end
+
   def send_email
     if frequency == "daily"
       UserMailer.with(user: self).daily_suggestions.deliver_now
