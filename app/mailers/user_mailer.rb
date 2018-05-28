@@ -12,7 +12,7 @@ class UserMailer < Devise::Mailer
     # call this function by: UserMailer.with(user: user).welcome_email.deliver_now
     @user =  params[:user]
     @url  = 'http://www.aiime.io'
-    mail(to: 'jordan.moore@aiime.io', subject: 'Welcome to My Awesome Site')
+    mail(to: 'thiswontwork@aiime.io', subject: 'Welcome to My Awesome Site')
   end
 
   def daily_suggestions
@@ -25,5 +25,19 @@ class UserMailer < Devise::Mailer
 
   def monthly_suggestions
 
+  end
+
+  def check_bounced_emails
+    client = postmark_client
+
+    User.all.each do |user|
+      next unless client.bounces(type: 'HardBounce', emailFilter: user.email).first
+      user.unconfirm
+    end
+  end
+
+  private
+  def postmark_client
+    Postmark::ApiClient.new(ActionMailer::Base.postmark_settings[:api_key])
   end
 end
